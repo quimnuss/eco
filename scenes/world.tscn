@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://dr5xf8vqbbqk"]
+
+[ext_resource type="Script" path="res://actors/glv.gd" id="1_4w355"]
+[ext_resource type="Script" path="res://actors/glv_sample_creator.gd" id="2_3v2uy"]
+[ext_resource type="Resource" uid="uid://cep2vigw5qb8s" path="res://data/3_sample_1.tres" id="2_rb4d6"]
+[ext_resource type="Script" path="res://actors/glv_sample.gd" id="3_dooye"]
+
+[sub_resource type="Resource" id="Resource_7wi82"]
+script = ExtResource("3_dooye")
+num_species = 10
+species_to_id = Array[String]([])
+densities = Array[float]([])
+growth = Array[float]([])
+mutuality = Array[float]([])
+
+[node name="World" type="Node2D"]
+
+[node name="GLV" type="Node2D" parent="."]
+script = ExtResource("1_4w355")
+sample = ExtResource("2_rb4d6")
+
+[node name="GLVTimer" type="Timer" parent="GLV"]
+wait_time = 0.1
+autostart = true
+
+[node name="GLVSampleCreator" type="Node2D" parent="."]
+script = ExtResource("2_3v2uy")
+example_glv_sample = SubResource("Resource_7wi82")
