@@ -3,6 +3,7 @@ class_name Species
 
 @onready var line_2d : Line2D = $Line2D
 @onready var label = $Label
+@onready var density_label = $DensityLabel
 
 @export var unitary_bar_size : Vector2 = Vector2(20, 0)
 
@@ -16,4 +17,5 @@ func set_species_name(species_name : String):
 
 func update_density(density : float):
     line_2d.set_point_position(1, unitary_bar_size * density)
+    density_label.set_text("%0.2f" % density)
 

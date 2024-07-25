@@ -69,3 +69,7 @@ func print_glv():
     for si in range(num_species):
         print("%s %f" % [species_names[si], densities[si]])
             
+func modify_species(index : int, new_mutuality : Array, new_growth : float):
+    for i in range(num_species):
+        mutuality[index*num_species + i] = new_mutuality[i]
+    growth[index] = new_growth
