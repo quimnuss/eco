@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="GLVSample" load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://actors/glv_sample.gd" id="1_jtgcp"]
+[ext_resource type="Script" path="res://actors/glv_sample.gd" id="1_12wmr"]
 
 [resource]
-script = ExtResource("1_jtgcp")
+script = ExtResource("1_12wmr")
 num_species = 3
-species_to_id = Array[String](["grass", "rabbit", "fox"])
+species_names = Array[String](["grass", "rabbit", "fox"])
 densities = Array[float]([1.0, 1.0, 1.0])
 growth = Array[float]([0.03, 0.02, 0.01])
 mutuality = Array[float]([-0.01, -0.01, 0.0, 0.01, -0.01, -0.01, 0.0, 0.01, -0.01])
