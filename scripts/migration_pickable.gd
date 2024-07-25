@@ -20,7 +20,7 @@ func _ready():
     pops.set_num_species(glv.num_species)
     pops.set_species_names(glv.species_names)
 
-func _input_event(viewport, event, shape_idx):
+func _input_event(_viewport, event, _shape_idx):
     if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
         if event.pressed:
             island_clicked.emit(event.position, island_id)

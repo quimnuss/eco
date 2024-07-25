@@ -6,6 +6,9 @@ var lines : Array[Species]
 
 func set_num_species(new_num_species : int):
     num_species = new_num_species
+    for line in lines:
+        line.queue_free()
+    lines.clear()
     for i in range(num_species):
         var line : Species = preload("res://actors/species.tscn").instantiate()
         lines.append(line)
@@ -26,4 +29,5 @@ func _on_glv_densities_update(densities : Array[float]):
     update_densities(densities)
 
 func _on_glv_num_species_changed(new_num_species):
-    set_num_species(new_num_species)
+    if num_species != new_num_species:
+        set_num_species(new_num_species)
