@@ -1,16 +1,14 @@
-[gd_scene load_steps=20 format=3 uid="uid://dr5xf8vqbbqk"]
+[gd_scene load_steps=16 format=3 uid="uid://dr5xf8vqbbqk"]
 
-[ext_resource type="Script" path="res://actors/glv.gd" id="1_4w355"]
 [ext_resource type="Texture2D" uid="uid://da530ehdtr15u" path="res://assets/hills.png" id="1_38j68"]
 [ext_resource type="Script" path="res://actors/glv_sample_creator.gd" id="2_3v2uy"]
 [ext_resource type="Texture2D" uid="uid://cvcv7cq4dejb7" path="res://assets/water.png" id="2_fmfro"]
-[ext_resource type="Resource" uid="uid://cep2vigw5qb8s" path="res://data/3_sample_1.tres" id="2_rb4d6"]
 [ext_resource type="Script" path="res://actors/glv_sample.gd" id="3_dooye"]
-[ext_resource type="Script" path="res://actors/pops.gd" id="7_2oarf"]
-[ext_resource type="Script" path="res://scripts/migration_pickable.gd" id="8_sa02f"]
+[ext_resource type="Resource" uid="uid://djl0w0qimmyme" path="res://data/3_sample_0.tres" id="8_iaokd"]
 [ext_resource type="Script" path="res://actors/line_manager.gd" id="9_i1dus"]
 [ext_resource type="Script" path="res://scripts/global_input_handler.gd" id="10_vxdro"]
 [ext_resource type="Resource" uid="uid://cablv1ftn3kpc" path="res://data/0_sample_0.tres" id="11_ci86w"]
+[ext_resource type="PackedScene" uid="uid://bu1g3ij4mtfhj" path="res://actors/island.tscn" id="11_q8qja"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lr0ww"]
 texture = ExtResource("1_38j68")
@@ -452,16 +450,6 @@ mutuality = Array[float]([])
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1uqfq"]
 size = Vector2(269, 233)
 
-[sub_resource type="Gradient" id="Gradient_trq5i"]
-offsets = PackedFloat32Array(0.507042, 0.584507, 0.647887)
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_k4nnm"]
-gradient = SubResource("Gradient_trq5i")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-metadata/_snap_enabled = true
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ye1po"]
 size = Vector2(184, 162)
 
@@ -481,63 +469,21 @@ example_glv_sample = SubResource("Resource_7wi82")
 [node name="LineManager" type="Node2D" parent="."]
 script = ExtResource("9_i1dus")
 
-[node name="Island1" type="Area2D" parent="."]
-position = Vector2(250, 143)
-script = ExtResource("8_sa02f")
+[node name="GlobalInputHandler" type="Node" parent="."]
+script = ExtResource("10_vxdro")
 
-[node name="GLV" type="Node2D" parent="Island1"]
-position = Vector2(-250, -143)
-script = ExtResource("1_4w355")
-sample = ExtResource("2_rb4d6")
-
-[node name="GLVTimer" type="Timer" parent="Island1/GLV"]
-wait_time = 0.1
-autostart = true
-
-[node name="Pops" type="Node2D" parent="Island1"]
-position = Vector2(-80, -16)
-script = ExtResource("7_2oarf")
+[node name="Island1" parent="." instance=ExtResource("11_q8qja")]
+position = Vector2(237, 146)
+island_id = 0
+glv_sample = ExtResource("8_iaokd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Island1"]
 shape = SubResource("RectangleShape2D_1uqfq")
 
-[node name="Highlight" type="Polygon2D" parent="Island1"]
-visible = false
-texture = SubResource("GradientTexture2D_k4nnm")
-texture_offset = Vector2(32, 32)
-polygon = PackedVector2Array(-122, -114, 146, -113, 147, 118, -122, 116)
-
-[node name="GlobalInputHandler" type="Node" parent="."]
-script = ExtResource("10_vxdro")
-
-[node name="Island2" type="Area2D" parent="."]
-position = Vector2(657, 287)
-script = ExtResource("8_sa02f")
-
-[node name="GLV" type="Node2D" parent="Island2"]
-position = Vector2(-250, -143)
-script = ExtResource("1_4w355")
-sample = ExtResource("11_ci86w")
-
-[node name="GLVTimer" type="Timer" parent="Island2/GLV"]
-wait_time = 0.1
-autostart = true
-
-[node name="Pops" type="Node2D" parent="Island2"]
-position = Vector2(-80, -16)
-script = ExtResource("7_2oarf")
+[node name="Island2" parent="." instance=ExtResource("11_q8qja")]
+position = Vector2(664, 289)
+island_id = 1
+glv_sample = ExtResource("11_ci86w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Island2"]
-position = Vector2(14, -1)
 shape = SubResource("RectangleShape2D_ye1po")
-
-[node name="Highlight" type="Polygon2D" parent="Island2"]
-visible = false
-texture = SubResource("GradientTexture2D_k4nnm")
-texture_offset = Vector2(32, 32)
-polygon = PackedVector2Array(-122, -114, 146, -113, 147, 118, -122, 116, -122, -63.8913)
-
-[connection signal="island_clicked" from="Island1" to="LineManager" method="_on_island_clicked"]
-[connection signal="densities_update" from="Island1/GLV" to="Island1/Pops" method="_on_glv_densities_update"]
-[connection signal="island_clicked" from="Island2" to="LineManager" method="_on_island_clicked"]
-[connection signal="densities_update" from="Island2/GLV" to="Island1/Pops" method="_on_glv_densities_update"]

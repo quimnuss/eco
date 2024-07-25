@@ -1,17 +1,18 @@
 extends Area2D
 
-@export var island_id : int = 0
+@export var island_id : int = -1
+@export var glv_sample : GLVSample
 @onready var highlight : Polygon2D = $Highlight
 
-@onready var glv = $GLV
+@onready var glv : GLV = $GLV
 @onready var pops = $Pops
 
 signal island_clicked(point : Vector2, island_id : int)
 
 func _ready():
     add_to_group('islands')
-    
-    island_id = get_tree().get_nodes_in_group('islands').find(self)
+    if island_id == -1:
+        island_id = get_tree().get_nodes_in_group('islands').find(self)
     
     mouse_entered.connect(_on_mouse_entered)
     mouse_exited.connect(_on_mouse_exited)

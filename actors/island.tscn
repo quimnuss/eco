@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bu1g3ij4mtfhj"]
+
+[ext_resource type="Script" path="res://scripts/migration_pickable.gd" id="1_evnkm"]
+[ext_resource type="Script" path="res://actors/glv.gd" id="2_pg5or"]
+[ext_resource type="Script" path="res://actors/pops.gd" id="4_q8gvr"]
+
+[sub_resource type="Gradient" id="Gradient_trq5i"]
+offsets = PackedFloat32Array(0.507042, 0.584507, 0.647887)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k4nnm"]
+gradient = SubResource("Gradient_trq5i")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[node name="Island" type="Area2D"]
+script = ExtResource("1_evnkm")
+
+[node name="GLV" type="Node2D" parent="."]
+position = Vector2(-250, -143)
+script = ExtResource("2_pg5or")
+
+[node name="GLVTimer" type="Timer" parent="GLV"]
+wait_time = 0.1
+autostart = true
+
+[node name="Pops" type="Node2D" parent="."]
+position = Vector2(-80, -16)
+script = ExtResource("4_q8gvr")
+
+[node name="Highlight" type="Polygon2D" parent="."]
+visible = false
+texture = SubResource("GradientTexture2D_k4nnm")
+texture_offset = Vector2(32, 32)
+polygon = PackedVector2Array(-122, -114, 146, -113, 147, 118, -122, 116, -122, -63.8913)
+
+[connection signal="densities_update" from="GLV" to="Pops" method="_on_glv_densities_update"]
