@@ -1,4 +1,5 @@
 extends Area2D
+class_name Island
 
 @export var island_id : int = -1
 @export var glv_sample : GLVSample
@@ -30,3 +31,11 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
     highlight.visible = false
+
+
+func _on_change_species(island : int, species_name : String, growth : float, mutuality : Array):
+    if island_id == island:
+        prints('Changing species', species_name, 'on island', island_id)
+        var species_index : int = glv.species_names.find(species_name)
+        if species_index != -1:
+            glv.modify_species(species_index, mutuality, growth)

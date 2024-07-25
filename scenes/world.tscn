@@ -1,13 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://dr5xf8vqbbqk"]
+[gd_scene load_steps=18 format=3 uid="uid://dr5xf8vqbbqk"]
 
 [ext_resource type="Texture2D" uid="uid://da530ehdtr15u" path="res://assets/hills.png" id="1_38j68"]
+[ext_resource type="Script" path="res://scenes/world.gd" id="1_ikrqe"]
 [ext_resource type="Script" path="res://actors/glv_sample_creator.gd" id="2_3v2uy"]
 [ext_resource type="Texture2D" uid="uid://cvcv7cq4dejb7" path="res://assets/water.png" id="2_fmfro"]
 [ext_resource type="Script" path="res://actors/glv_sample.gd" id="3_dooye"]
-[ext_resource type="Resource" uid="uid://djl0w0qimmyme" path="res://data/3_sample_0.tres" id="8_iaokd"]
+[ext_resource type="Resource" uid="uid://c6wxiaa4sjc0n" path="res://data/3_sample_0.tres" id="8_iaokd"]
 [ext_resource type="Script" path="res://actors/line_manager.gd" id="9_i1dus"]
 [ext_resource type="Script" path="res://scripts/global_input_handler.gd" id="10_vxdro"]
 [ext_resource type="Resource" uid="uid://cablv1ftn3kpc" path="res://data/0_sample_0.tres" id="11_ci86w"]
+[ext_resource type="PackedScene" uid="uid://cfta4rowx2s76" path="res://ui/cli.tscn" id="11_obbtr"]
 [ext_resource type="PackedScene" uid="uid://bu1g3ij4mtfhj" path="res://actors/island.tscn" id="11_q8qja"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lr0ww"]
@@ -454,6 +456,7 @@ size = Vector2(269, 233)
 size = Vector2(184, 162)
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_ikrqe")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_mypdu")
@@ -472,21 +475,23 @@ script = ExtResource("9_i1dus")
 [node name="GlobalInputHandler" type="Node" parent="."]
 script = ExtResource("10_vxdro")
 
-[node name="Island1" parent="." instance=ExtResource("11_q8qja")]
+[node name="Island0" parent="." instance=ExtResource("11_q8qja")]
 position = Vector2(237, 146)
 island_id = 0
 glv_sample = ExtResource("8_iaokd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Island1"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Island0"]
 shape = SubResource("RectangleShape2D_1uqfq")
 
-[node name="Island2" parent="." instance=ExtResource("11_q8qja")]
+[node name="Island1" parent="." instance=ExtResource("11_q8qja")]
 position = Vector2(664, 289)
 island_id = 1
 glv_sample = ExtResource("11_ci86w")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Island2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Island1"]
 shape = SubResource("RectangleShape2D_ye1po")
 
+[node name="Cli" parent="." instance=ExtResource("11_obbtr")]
+
+[connection signal="island_clicked" from="Island0" to="LineManager" method="_on_island_clicked"]
 [connection signal="island_clicked" from="Island1" to="LineManager" method="_on_island_clicked"]
-[connection signal="island_clicked" from="Island2" to="LineManager" method="_on_island_clicked"]
