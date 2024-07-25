@@ -9,7 +9,7 @@ var migrating_island : int = -1
 
 signal migration_established(from, to)
 
-func _process(delta):
+func _process(_delta):
     if migration_line and is_instance_valid(migration_line) and migrating_island != -1:
         migration_line.set_point_position(1, get_global_mouse_position())
 

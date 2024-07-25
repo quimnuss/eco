@@ -487,3 +487,6 @@ glv_sample = ExtResource("11_ci86w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Island2"]
 shape = SubResource("RectangleShape2D_ye1po")
+
+[connection signal="island_clicked" from="Island1" to="LineManager" method="_on_island_clicked"]
+[connection signal="island_clicked" from="Island2" to="LineManager" method="_on_island_clicked"]
