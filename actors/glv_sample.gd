@@ -3,7 +3,7 @@ class_name GLVSample
 
 @export var num_species : int = 10
 
-@export var species_to_id : Array[String]
+@export var species_names : Array[String]
 
 @export var densities : Array[float]
 

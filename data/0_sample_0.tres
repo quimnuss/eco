@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GLVSample" load_steps=2 format=3 uid="uid://cablv1ftn3kpc"]
+
+[ext_resource type="Script" path="res://actors/glv_sample.gd" id="1_qthdt"]
+
+[resource]
+script = ExtResource("1_qthdt")
+num_species = 0
+species_names = Array[String]([])
+densities = Array[float]([])
+growth = Array[float]([])
+mutuality = Array[float]([])
