@@ -11,7 +11,7 @@ var growth : Array[float]
 
 var mutuality : Array[float]
 
-@export var sample : GLVSample
+var sample : GLVSample
 
 @onready var glv_timer : Timer = $GLVTimer
 
@@ -24,6 +24,7 @@ signal densities_update(new_densities : Array[float])
 signal num_species_changed(new_num_species : int)
 
 func _ready():
+    sample = get_parent().glv_sample
     glv_timer.timeout.connect(ecotick)
     if sample:
         from_resource()
