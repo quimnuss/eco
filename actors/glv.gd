@@ -39,6 +39,12 @@ func _ready():
     
     num_species_changed.emit(num_species)
 
+func restart(new_sample : GLVSample):
+    sample = new_sample
+    from_resource()
+    growth_delta.resize(num_species)
+    mutual_delta.resize(num_species*num_species)    
+    num_species_changed.emit(num_species)
 
 func from_resource():
     self.num_species = sample.num_species
