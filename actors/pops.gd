@@ -28,6 +28,8 @@ func update_densities(densities : Array[float]):
 func _on_glv_densities_update(densities : Array[float]):
     update_densities(densities)
 
-func _on_glv_num_species_changed(new_num_species):
+func _on_glv_num_species_changed(new_num_species : int, species_names : Array):
     if num_species != new_num_species:
         set_num_species(new_num_species)
+        if not species_names.is_empty():
+            set_species_names(species_names)
