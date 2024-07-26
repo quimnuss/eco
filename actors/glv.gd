@@ -21,7 +21,7 @@ var mutual_delta : Array[Array]
 var tick_count : int = 0
 
 signal densities_update(new_densities : Array[float])
-signal num_species_changed(new_num_species : int)
+signal num_species_changed(new_num_species : int, species_names : Array)
 
 func _ready():
     sample = get_parent().glv_sample
@@ -41,7 +41,7 @@ func _ready():
     for mutual in mutual_delta:
         mutual.resize(num_species)
     
-    num_species_changed.emit(num_species)
+    num_species_changed.emit(num_species, Array())
 
 func restart(new_sample : GLVSample):
     sample = new_sample
@@ -51,7 +51,7 @@ func restart(new_sample : GLVSample):
     mutual_delta.resize(num_species)
     for mutual in mutual_delta:
         mutual.resize(num_species)
-    num_species_changed.emit(num_species)
+    num_species_changed.emit(num_species, Array())
 
 func from_resource():
     self.num_species = sample.num_species
@@ -87,7 +87,19 @@ func modify_species(index : int, new_mutuality : Array, new_growth : float):
         mutuality[index][i] = new_mutuality[i]
     growth[index] = new_growth
 
-#func add_species(name : String, new_mutuality : Array, new_growth : float):
-    #for species_index in range(num_species):
-        #mutuality[species_index].append(new_mutuality[species_index])
+func add_species(species_name : String, new_mutuality : Array, new_growth : float):
+    for species_index in range(num_species):
+        mutuality[species_index].push_back(0)
+    mutuality.push_back(new_mutuality)
+    growth.push_back(new_growth)
+    densities.push_back(1)
+    species_names.push_back(species_name)
+    self.num_species += 1
+    growth_delta.resize(num_species)
+    
+    mutual_delta.resize(num_species)
+    for mutual in mutual_delta:
+        mutual.resize(num_species)
+
+    num_species_changed.emit(num_species, species_names)
     

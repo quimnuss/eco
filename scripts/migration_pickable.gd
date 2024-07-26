@@ -30,7 +30,10 @@ func _ready():
 
 func _on_change_species(island : int, species_name : String, growth : float, mutuality : Array):
     if island_id == island:
-        prints('Changing species', species_name, 'on island', island_id)
         var species_index : int = glv.species_names.find(species_name)
         if species_index != -1:
+            prints('Changing species', species_name, 'on island', island_id)
             glv.modify_species(species_index, mutuality, growth)
+        else:
+            prints('Adding species', species_name, 'on island', island_id)
+            glv.add_species(species_name, mutuality, growth)
