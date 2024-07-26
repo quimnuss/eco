@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 class_name Island
 
 @export var island_id : int = -1
@@ -8,30 +8,25 @@ class_name Island
 @onready var glv : GLV = $GLV
 @onready var pops = $Pops
 
-signal island_clicked(point : Vector2, island_id : int)
+signal island_selected(island_id : int)
 
 func _ready():
+    if OS.is_debug_build() and self.owner == null:
+        self.global_position = get_viewport_rect().size/2
+        glv_sample = preload("res://data/3_sample_0.tres")
+        glv.restart(glv_sample)
+
     add_to_group('islands')
     if island_id == -1:
         island_id = get_tree().get_nodes_in_group('islands').find(self)
     
-    mouse_entered.connect(_on_mouse_entered)
-    mouse_exited.connect(_on_mouse_exited)
-    
     pops.set_num_species(glv.num_species)
     pops.set_species_names(glv.species_names)
-
-func _input_event(_viewport, event, _shape_idx):
-    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-        if event.pressed:
-            island_clicked.emit(event.position, island_id)
-
-func _on_mouse_entered():
-    highlight.visible = true
-
-func _on_mouse_exited():
-    highlight.visible = false
-
+    
+    var island_shape : CollisionShape2D = $Area2D/CollisionShape2D as CollisionShape2D
+    var island_rect : Rect2i = $TileMap.get_used_rect()
+    island_shape.shape.size = island_rect.size
+    island_shape.position = island_rect.position
 
 func _on_change_species(island : int, species_name : String, growth : float, mutuality : Array):
     if island_id == island:
