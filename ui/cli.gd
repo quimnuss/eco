@@ -6,7 +6,7 @@ var history_index : int = 0
 
 @onready var cli_edit = $CenterContainer/CliEdit
 
-signal change_species(island : int, species_name : String, growth : float, mutuality : Array[float])
+signal change_species(island : int, species_name : String, growth : float, mutuality : Array[Array])
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

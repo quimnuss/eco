@@ -9,4 +9,4 @@ class_name GLVSample
 
 @export var growth : Array[float]
 
-@export var mutuality : Array[float]
+@export var mutuality : Array[Array]

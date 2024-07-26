@@ -9,14 +9,14 @@ var densities : Array[float]
 
 var growth : Array[float]
 
-var mutuality : Array[float]
+var mutuality : Array[Array]
 
 var sample : GLVSample
 
 @onready var glv_timer : Timer = $GLVTimer
 
 var growth_delta : Array[float]
-var mutual_delta : Array[float]
+var mutual_delta : Array[Array]
 
 var tick_count : int = 0
 
@@ -32,10 +32,14 @@ func _ready():
         species_names.resize(num_species)
         densities.resize(num_species)
         growth.resize(num_species)
-        mutuality.resize(num_species*num_species)
+        mutuality.resize(num_species)
+        for mutual in mutuality:
+            mutual.resize(num_species)
 
     growth_delta.resize(num_species)
-    mutual_delta.resize(num_species*num_species)
+    mutual_delta.resize(num_species)
+    for mutual in mutual_delta:
+        mutual.resize(num_species)
     
     num_species_changed.emit(num_species)
 
@@ -43,7 +47,10 @@ func restart(new_sample : GLVSample):
     sample = new_sample
     from_resource()
     growth_delta.resize(num_species)
-    mutual_delta.resize(num_species*num_species)    
+    
+    mutual_delta.resize(num_species)
+    for mutual in mutual_delta:
+        mutual.resize(num_species)
     num_species_changed.emit(num_species)
 
 func from_resource():
@@ -57,14 +64,14 @@ func ecotick():
     for si in range(num_species):
         growth_delta[si] = densities[si] * growth[si]
         for sj in range(num_species):
-            var mutual : float = mutuality[si*num_species + sj]
-            mutual_delta[si*num_species + sj] = densities[si] * mutual * densities[sj]
+            var mutual : float = mutuality[si][sj]
+            mutual_delta[si][sj] = densities[si] * mutual * densities[sj]
     
     # add everything up
     for si in range(num_species):
         densities[si] += growth_delta[si]
         for sj in range(num_species):
-            densities[si] += mutual_delta[si*num_species + sj]
+            densities[si] += mutual_delta[si][sj]
 
     tick_count += 1
     #print_glv()
@@ -77,5 +84,10 @@ func print_glv():
             
 func modify_species(index : int, new_mutuality : Array, new_growth : float):
     for i in range(num_species):
-        mutuality[index*num_species + i] = new_mutuality[i]
+        mutuality[index][i] = new_mutuality[i]
     growth[index] = new_growth
+
+#func add_species(name : String, new_mutuality : Array, new_growth : float):
+    #for species_index in range(num_species):
+        #mutuality[species_index].append(new_mutuality[species_index])
+    
