@@ -8,4 +8,4 @@ num_species = 0
 species_names = Array[String]([])
 densities = Array[float]([])
 growth = Array[float]([])
-mutuality = Array[float]([])
+mutuality = Array[Array]([])

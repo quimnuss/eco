@@ -17,7 +17,7 @@ num_species = 10
 species_names = Array[String]([])
 densities = Array[float]([])
 growth = Array[float]([])
-mutuality = Array[float]([])
+mutuality = Array[Array]([])
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_ikrqe")

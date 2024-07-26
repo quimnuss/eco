@@ -13,8 +13,8 @@ func create():
     glv_sample.densities = [1, 1, 1]
     glv_sample.growth = [0.03, 0.02, 0.01]
     glv_sample.mutuality = [
-        -0.01, -0.01, 0,
-        0.01, -0.01, -0.01,
-        0,     0.01, -0.01
+        [-0.01, -0.01, 0],
+        [0.01, -0.01, -0.01],
+        [0,     0.01, -0.01]
     ]
     ResourceSaver.save(glv_sample, 'res://data/3_sample_0.tres')
