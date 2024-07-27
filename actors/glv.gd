@@ -21,7 +21,9 @@ var mutual_delta : Array[Array]
 var tick_count : int = 0
 
 signal densities_update(new_densities : Array[float])
-signal num_species_changed(new_num_species : int, species_names : Array)
+signal num_species_changed(new_num_species : int, species_names : Array[String])
+
+signal species_changed(species_names : Array[String], mutuality : Array[Array], growth : Array)
 
 func _ready():
     sample = get_parent().glv_sample
