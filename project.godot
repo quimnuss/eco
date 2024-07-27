@@ -15,6 +15,10 @@ run/main_scene="res://scenes/world.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/force_directed_graph/plugin.cfg")
+
 [gui]
 
 theme/custom_font="res://assets/fonts/glacial_indifference/GlacialIndifference-Bold.otf"
