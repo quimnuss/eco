@@ -1,43 +1,54 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnnr3nehk5wot"]
+[gd_scene load_steps=5 format=3 uid="uid://cnnr3nehk5wot"]
 
 [ext_resource type="Script" path="res://addons/force_directed_graph/force_directed_graph.gd" id="1_bww5t"]
+[ext_resource type="Script" path="res://ui/glv_fdg.gd" id="1_s4ndp"]
 [ext_resource type="Script" path="res://addons/force_directed_graph/fdg_node.gd" id="2_h77l5"]
 [ext_resource type="Script" path="res://addons/force_directed_graph/fdg_spring.gd" id="3_7iqss"]
 
 [node name="Control" type="Node2D"]
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="GLVFDG" type="Node2D" parent="."]
 position = Vector2(593, 342)
+script = ExtResource("1_s4ndp")
 
-[node name="ForceDirectedGraph" type="Node2D" parent="Node2D"]
+[node name="ForceDirectedGraph" type="Node2D" parent="GLVFDG"]
 script = ExtResource("1_bww5t")
 
-[node name="FDGNode" type="Node2D" parent="Node2D/ForceDirectedGraph"]
+[node name="FDGNode" type="Node2D" parent="GLVFDG/ForceDirectedGraph"]
 position = Vector2(-387, -192)
 script = ExtResource("2_h77l5")
 pinned_down = true
+radius = 10.0
+repulsion = 0.1
+min_distance = 30.0
 draw_point = true
 point_color = Color(1, 1, 0.403922, 1)
 
-[node name="FDGSpring2" type="Line2D" parent="Node2D/ForceDirectedGraph/FDGNode" node_paths=PackedStringArray("node_start", "node_end")]
+[node name="FDGSpring2" type="Line2D" parent="GLVFDG/ForceDirectedGraph/FDGNode" node_paths=PackedStringArray("node_start", "node_end")]
+points = PackedVector2Array(271, 57)
 width = 2.0
 script = ExtResource("3_7iqss")
+length = 250.0
 node_start = NodePath("../../FDGNode2")
 node_end = NodePath("../../FDGNode3")
 
-[node name="FDGNode2" type="Node2D" parent="Node2D/ForceDirectedGraph"]
-position = Vector2(111.804, -109.569)
+[node name="FDGNode2" type="Node2D" parent="GLVFDG/ForceDirectedGraph"]
+position = Vector2(-139.861, -257.251)
 script = ExtResource("2_h77l5")
+radius = 10.0
+repulsion = 0.1
+min_distance = 30.0
 draw_point = true
 point_color = Color(1, 0.466667, 1, 1)
 
-[node name="FDGSpring" type="Line2D" parent="Node2D/ForceDirectedGraph/FDGNode2" node_paths=PackedStringArray("node_start", "node_end")]
+[node name="FDGSpring" type="Line2D" parent="GLVFDG/ForceDirectedGraph/FDGNode2" node_paths=PackedStringArray("node_start", "node_end")]
 width = 2.0
 script = ExtResource("3_7iqss")
+length = 250.0
 node_start = NodePath("../../FDGNode")
 node_end = NodePath("../../FDGNode3")
 
-[node name="Label" type="Label" parent="Node2D/ForceDirectedGraph/FDGNode2/FDGSpring"]
+[node name="Label" type="Label" parent="GLVFDG/ForceDirectedGraph/FDGNode2/FDGSpring"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -51,26 +62,34 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "test"
 
-[node name="FDGNode3" type="Node2D" parent="Node2D/ForceDirectedGraph"]
-position = Vector2(-223.083, 269.007)
+[node name="FDGNode3" type="Node2D" parent="GLVFDG/ForceDirectedGraph"]
+position = Vector2(-179.839, -19.5735)
 script = ExtResource("2_h77l5")
+radius = 10.0
+repulsion = 0.1
+min_distance = 30.0
 draw_point = true
 point_color = Color(0.662745, 1, 1, 1)
 
-[node name="FDGSpring" type="Line2D" parent="Node2D/ForceDirectedGraph/FDGNode3" node_paths=PackedStringArray("node_start", "node_end")]
+[node name="FDGSpring" type="Line2D" parent="GLVFDG/ForceDirectedGraph/FDGNode3" node_paths=PackedStringArray("node_start", "node_end")]
 width = 2.0
 script = ExtResource("3_7iqss")
+length = 250.0
 node_start = NodePath("../../FDGNode")
 node_end = NodePath("../../FDGNode2")
 
-[node name="FDGNode4" type="Node2D" parent="Node2D/ForceDirectedGraph"]
-position = Vector2(238.45, 87.2874)
+[node name="FDGNode4" type="Node2D" parent="GLVFDG/ForceDirectedGraph"]
+position = Vector2(74.8898, 23.2739)
 script = ExtResource("2_h77l5")
+radius = 10.0
+repulsion = 0.1
+min_distance = 30.0
 draw_point = true
 point_color = Color(1, 0.533333, 0.556863, 1)
 
-[node name="FDGSpring" type="Line2D" parent="Node2D/ForceDirectedGraph/FDGNode4" node_paths=PackedStringArray("node_start", "node_end")]
+[node name="FDGSpring" type="Line2D" parent="GLVFDG/ForceDirectedGraph/FDGNode4" node_paths=PackedStringArray("node_start", "node_end")]
 width = 2.0
 script = ExtResource("3_7iqss")
+length = 250.0
 node_start = NodePath("../../FDGNode3")
 node_end = NodePath("..")
