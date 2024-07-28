@@ -5,6 +5,7 @@
 
 [node name="TextureRect" type="TextureRect"]
 visible = false
+modulate = Color(0.745098, 0.745098, 0.745098, 1)
 custom_minimum_size = Vector2(32, 32)
 offset_left = 36.0
 offset_top = 36.0

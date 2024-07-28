@@ -1,6 +1,5 @@
-@tool
 extends Control
-@onready var grid_container : GridContainer = %GridContainer
+@onready var grid_container : GridContainer = $PanelContainer/GridContainer
 @export var square : Control
 
 @export var num_species : int = 3
@@ -37,9 +36,8 @@ func refresh_grid():
             var one_square = preload('res://ui/range_rect.tscn').instantiate()
             one_square.index_i = i
             one_square.index_j = j
-            one_square.visible = true
-            one_square.modulate = Color.GRAY
-            one_square.turn_up.connect(_on_turn_down)
+            one_square.turn_up.connect(_on_turn_up)
+            one_square.turn_down.connect(_on_turn_down)
             grid_container.add_child(one_square)
 
 func _on_turn_up(index_i : int, index_j : int):
@@ -72,11 +70,9 @@ func _on_glv_species_changed(new_species_names : Array, mutuality : Array, growt
     for i in range(num_species):
         for j in range(num_species):
             if abs(mutuality[i][j]) > 0.0001:
-                var ratio = clamp(abs(mutuality[i][j]/max_mutuality),0,1)*0.3 + 0.7
-                var base_color = Color.DARK_RED if mutuality[i][j] < 0 else Color.DARK_GREEN
                 var children_index : int = (i+1)*(num_species+1) + (j+1)
                 var square : TextureRect = grid_children[children_index]
-                square.set_modulate(base_color*ratio)
+                square.set_color(mutuality[i][j],max_mutuality)
 
 func _on_button_pressed():
     self.visible = false
