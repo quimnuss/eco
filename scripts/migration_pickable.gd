@@ -7,6 +7,7 @@ class_name Island
 
 @onready var glv : GLV = $GLV
 @onready var pops = $Pops
+@onready var species_grid = $SpeciesGrid
 
 signal island_selected(island_id : int)
 
@@ -27,6 +28,9 @@ func _ready():
     var island_rect : Rect2i = $TileMap.get_used_rect()
     island_shape.shape.size = island_rect.size
     island_shape.position = island_rect.position
+    
+    species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
+
 
 func _on_change_species(island : int, species_name : String, growth : float, mutuality : Array):
     if island_id == island:
@@ -37,3 +41,8 @@ func _on_change_species(island : int, species_name : String, growth : float, mut
         else:
             prints('Adding species', species_name, 'on island', island_id)
             glv.add_species(species_name, mutuality, growth)
+
+        species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
+
+func _on_area_2d_island_clicked():
+    species_grid.visible = true
