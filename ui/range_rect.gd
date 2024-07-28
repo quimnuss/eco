@@ -11,12 +11,12 @@ var value : float
 signal turn_up(index_i, index_j)
 signal turn_down(index_i, index_j)
 
-func set_color(value, max_value):
-    if abs(value) < 0.0001:
+func set_color(new_value, max_value):
+    if abs(new_value) < 0.0001:
         self.modulate = Color.GRAY
         return
-    var ratio = clamp(abs(value/max_value),0,1)*0.3 + 0.7
-    var base_color = Color.DARK_RED if value < 0 else Color.DARK_GREEN
+    var ratio = clamp(abs(new_value/max_value),0,1)*0.3 + 0.7
+    var base_color = Color.DARK_RED if new_value < 0 else Color.DARK_GREEN
     self.set_modulate(base_color*ratio)
 
 func _input(event):
@@ -26,4 +26,6 @@ func _input(event):
             self.set_color(self.value,self.max_value)
             turn_up.emit(index_i, index_j)
         elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+            self.value -= increments
+            self.set_color(self.value,self.max_value)
             turn_down.emit(index_i, index_j)
