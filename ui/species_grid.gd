@@ -34,10 +34,18 @@ func refresh_grid():
         grid_container.add_child(species_name)
         
         for j in range(num_species):
-            var one_square = square.duplicate()
+            var one_square = preload('res://ui/range_rect.tscn').instantiate()
+            one_square.index_i = i
+            one_square.index_j = j
             one_square.visible = true
             one_square.modulate = Color.GRAY
+            one_square.turn_up.connect(_on_turn_down)
             grid_container.add_child(one_square)
+
+func _on_turn_up(index_i : int, index_j : int):
+    pass
+func _on_turn_down(index_i : int, index_j : int):
+    pass
 
 func create_species_label(index : int) -> Label:
     var species_name : Label = Label.new()
