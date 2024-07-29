@@ -4,6 +4,8 @@ class_name Island
 @export var island_id : int = -1
 @export var glv_sample : GLVSample
 @onready var highlight : Polygon2D = $Highlight
+@onready var tile_map = $TileMap
+@onready var collision_shape_2d = $Area2D/CollisionShape2D
 
 @onready var glv : GLV = $GLV
 @onready var pops = $Pops
@@ -24,13 +26,11 @@ func _ready():
     pops.set_num_species(glv.num_species)
     pops.set_species_names(glv.species_names)
     
-    var island_shape : CollisionShape2D = $Area2D/CollisionShape2D as CollisionShape2D
-    var island_rect : Rect2i = $TileMap.get_used_rect()
-    island_shape.shape.size = island_rect.size
-    island_shape.position = island_rect.position
-    
     species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
 
+    var island_rect : Rect2i = tile_map.get_used_rect()
+    collision_shape_2d.shape.size = island_rect.size*16
+    
 
 func _on_change_species(island : int, species_name : String, growth : float, mutuality : Array):
     if island_id == island:

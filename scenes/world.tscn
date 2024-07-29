@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://actors/glv_sample_creator.gd" id="2_3v2uy"]
 [ext_resource type="TileSet" uid="uid://bxwxldjtw4p8n" path="res://world/island_tileset.tres" id="2_re80x"]
 [ext_resource type="Script" path="res://actors/glv_sample.gd" id="3_dooye"]
-[ext_resource type="Resource" uid="uid://fkyatsaaxuy5" path="res://data/3_sample_0.tres" id="8_iaokd"]
+[ext_resource type="Resource" uid="uid://civar63veinm5" path="res://data/3_sample_0.tres" id="8_iaokd"]
 [ext_resource type="Script" path="res://actors/line_manager.gd" id="9_i1dus"]
 [ext_resource type="Script" path="res://scripts/global_input_handler.gd" id="10_vxdro"]
 [ext_resource type="Resource" uid="uid://cablv1ftn3kpc" path="res://data/0_sample_0.tres" id="11_ci86w"]

@@ -89,6 +89,12 @@ func modify_species(index : int, new_mutuality : Array, new_growth : float):
         mutuality[index][i] = new_mutuality[i]
     growth[index] = new_growth
 
+func change_mutuality(index_i : int, index_j : int, new_mutuality : float):
+    mutuality[index_i][index_j] = new_mutuality
+
+func change_growth(index_i : int, new_growth : float):
+    growth[index_i] = new_growth
+
 func add_species(species_name : String, new_mutuality : Array, new_growth : float):
     for species_index in range(num_species):
         mutuality[species_index].push_back(0)
@@ -105,3 +111,4 @@ func add_species(species_name : String, new_mutuality : Array, new_growth : floa
 
     num_species_changed.emit(num_species, species_names)
     
+

@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bu1g3ij4mtfhj"]
 
-[ext_resource type="Script" path="res://scripts/migration_pickable.gd" id="1_evnkm"]
+[ext_resource type="Script" path="res://scripts/island.gd" id="1_evnkm"]
 [ext_resource type="Script" path="res://actors/glv.gd" id="2_pg5or"]
 [ext_resource type="TileSet" uid="uid://bxwxldjtw4p8n" path="res://world/island_tileset.tres" id="4_bmc6s"]
 [ext_resource type="Script" path="res://actors/pops.gd" id="4_q8gvr"]
@@ -17,8 +17,8 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 metadata/_snap_enabled = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7o84u"]
-size = Vector2(74, 62)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wx60"]
+size = Vector2(200, 200)
 
 [node name="Island" type="Node2D"]
 script = ExtResource("1_evnkm")
@@ -40,6 +40,16 @@ autostart = true
 position = Vector2(-80, -16)
 script = ExtResource("4_q8gvr")
 
+[node name="SpeciesGrid" parent="." instance=ExtResource("6_e82f1")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = 85.0
+offset_right = -48.0
+offset_bottom = 85.0
+grow_vertical = 0
+
 [node name="Highlight" type="Polygon2D" parent="."]
 visible = false
 texture = SubResource("GradientTexture2D_k4nnm")
@@ -50,16 +60,11 @@ polygon = PackedVector2Array(-122, -114, 146, -113, 147, 118, -122, 116, -122, -
 script = ExtResource("5_hc6sn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_7o84u")
-
-[node name="SpeciesGrid" parent="." instance=ExtResource("6_e82f1")]
-visible = false
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-grow_vertical = 0
+shape = SubResource("RectangleShape2D_8wx60")
 
 [connection signal="densities_update" from="GLV" to="Pops" method="_on_glv_densities_update"]
 [connection signal="num_species_changed" from="GLV" to="Pops" method="_on_glv_num_species_changed"]
 [connection signal="species_changed" from="GLV" to="SpeciesGrid" method="_on_glv_species_changed"]
+[connection signal="change_growth" from="SpeciesGrid" to="GLV" method="change_growth"]
+[connection signal="change_mutuality" from="SpeciesGrid" to="GLV" method="change_mutuality"]
 [connection signal="island_clicked" from="Area2D" to="." method="_on_area_2d_island_clicked"]
