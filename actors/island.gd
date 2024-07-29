@@ -9,7 +9,7 @@ class_name Island
 
 @onready var glv : GLV = $GLV
 @onready var pops = $Pops
-@onready var species_grid = $SpeciesGrid
+@onready var species_grid = %SpeciesGrid
 
 signal island_selected(island_id : int)
 

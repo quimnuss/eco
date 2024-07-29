@@ -40,16 +40,6 @@ autostart = true
 position = Vector2(-80, -16)
 script = ExtResource("4_q8gvr")
 
-[node name="SpeciesGrid" parent="." instance=ExtResource("6_e82f1")]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = 85.0
-offset_right = -48.0
-offset_bottom = 85.0
-grow_vertical = 0
-
 [node name="Highlight" type="Polygon2D" parent="."]
 visible = false
 texture = SubResource("GradientTexture2D_k4nnm")
@@ -62,9 +52,22 @@ script = ExtResource("5_hc6sn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_8wx60")
 
+[node name="Window" type="Window" parent="."]
+initial_position = 2
+size = Vector2i(200, 200)
+borderless = true
+popup_window = true
+
+[node name="SpeciesGrid" parent="Window" instance=ExtResource("6_e82f1")]
+unique_name_in_owner = true
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 10.0
+
 [connection signal="densities_update" from="GLV" to="Pops" method="_on_glv_densities_update"]
 [connection signal="num_species_changed" from="GLV" to="Pops" method="_on_glv_num_species_changed"]
-[connection signal="species_changed" from="GLV" to="SpeciesGrid" method="_on_glv_species_changed"]
-[connection signal="change_growth" from="SpeciesGrid" to="GLV" method="change_growth"]
-[connection signal="change_mutuality" from="SpeciesGrid" to="GLV" method="change_mutuality"]
+[connection signal="species_changed" from="GLV" to="Window/SpeciesGrid" method="_on_glv_species_changed"]
 [connection signal="island_clicked" from="Area2D" to="." method="_on_area_2d_island_clicked"]
+[connection signal="change_growth" from="Window/SpeciesGrid" to="GLV" method="change_growth"]
+[connection signal="change_mutuality" from="Window/SpeciesGrid" to="GLV" method="change_mutuality"]

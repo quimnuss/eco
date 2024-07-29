@@ -1,7 +1,6 @@
 extends Control
 @onready var grid_container : GridContainer = $PanelContainer/VBoxContainer/GridContainer
 @onready var growths : HBoxContainer = $PanelContainer/VBoxContainer/Growths
-@export var square : Control
 
 @export var num_species : int = 3
 
