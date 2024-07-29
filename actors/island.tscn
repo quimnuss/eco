@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://bu1g3ij4mtfhj"]
 
-[ext_resource type="Script" path="res://scripts/island.gd" id="1_evnkm"]
+[ext_resource type="Script" path="res://actors/island.gd" id="1_0d0km"]
 [ext_resource type="Script" path="res://actors/glv.gd" id="2_pg5or"]
 [ext_resource type="TileSet" uid="uid://bxwxldjtw4p8n" path="res://world/island_tileset.tres" id="4_bmc6s"]
 [ext_resource type="Script" path="res://actors/pops.gd" id="4_q8gvr"]
@@ -21,7 +21,7 @@ metadata/_snap_enabled = true
 size = Vector2(200, 200)
 
 [node name="Island" type="Node2D"]
-script = ExtResource("1_evnkm")
+script = ExtResource("1_0d0km")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("4_bmc6s")
