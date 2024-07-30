@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://actors/glv_sample_creator.gd" id="2_3v2uy"]
 [ext_resource type="TileSet" uid="uid://bxwxldjtw4p8n" path="res://world/island_tileset.tres" id="2_re80x"]
 [ext_resource type="Script" path="res://actors/glv_sample.gd" id="3_dooye"]
-[ext_resource type="Resource" uid="uid://civar63veinm5" path="res://data/3_sample_0.tres" id="8_iaokd"]
+[ext_resource type="Resource" uid="uid://5pobprjlyqrf" path="res://data/3_sample_2_negative_growth.tres" id="8_mr4m2"]
 [ext_resource type="Script" path="res://actors/line_manager.gd" id="9_i1dus"]
 [ext_resource type="Script" path="res://scripts/global_input_handler.gd" id="10_vxdro"]
 [ext_resource type="Resource" uid="uid://cablv1ftn3kpc" path="res://data/0_sample_0.tres" id="11_ci86w"]
@@ -18,6 +18,8 @@ species_names = Array[String]([])
 densities = Array[float]([])
 growth = Array[float]([])
 mutuality = Array[Array]([])
+description = ""
+display_name = ""
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_ikrqe")
@@ -51,7 +53,7 @@ script = ExtResource("10_vxdro")
 [node name="Island0" parent="." instance=ExtResource("11_q8qja")]
 position = Vector2(237, 146)
 island_id = 0
-glv_sample = ExtResource("8_iaokd")
+glv_sample = ExtResource("8_mr4m2")
 
 [node name="Island1" parent="." instance=ExtResource("11_q8qja")]
 position = Vector2(664, 289)

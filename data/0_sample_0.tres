@@ -9,3 +9,5 @@ species_names = Array[String]([])
 densities = Array[float]([])
 growth = Array[float]([])
 mutuality = Array[Array]([])
+description = "Empty GLVSample"
+display_name = "empty"

@@ -51,7 +51,15 @@ func change_immigration(from_island : Island, to_island : Island, species_name :
     else:
         # TODO new species! where do we get the definition? we probably need a global dictionary
         # and islands apply modifiers?
-        pass
+        var from_island_species_index : int = from_island.glv.species_names.find(species_name)
+        # The species available do not match so mutuality matrices do not match either
+        #var new_species_mutuality : Array[float] = from_island.glv.mutuality[from_island_species_index]
+        var self_mutual_array : Array[float]
+        self_mutual_array.resize(glv.num_species+1)
+        self_mutual_array[glv.num_species] = from_island.glv.mutuality[from_island_species_index][from_island_species_index]
+        glv.add_species(species_name, self_mutual_array, from_island.glv.growth[from_island_species_index])
+        glv.densities[species_index] = migration_value
+        species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
 
 func _on_change_species(island : int, species_name : String, growth : float, mutuality : Array):
     if island_id == island:
@@ -66,4 +74,4 @@ func _on_change_species(island : int, species_name : String, growth : float, mut
         species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
 
 func _on_area_2d_island_clicked():
-    species_grid.visible = true
+    species_grid.visible = not species_grid.visible

@@ -9,3 +9,5 @@ species_names = Array[String](["grass", "rabbit", "fox"])
 densities = Array[float]([1.0, 1.0, 1.0])
 growth = Array[float]([0.3, 0.2, 0.1])
 mutuality = Array[Array]([])
+description = "Impossible Growth x10 on a 3x3"
+display_name = "growth_x10_3x3"
