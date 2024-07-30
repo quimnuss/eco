@@ -31,6 +31,8 @@ signal num_species_changed(new_num_species : int, species_names : Array[String])
 
 signal species_changed(species_names : Array[String], mutuality : Array[Array], growth : Array)
 
+signal densities_update_drivers(new_densities : Array[float], mutual_delta : Array[Array], growth_delta : Array[float])
+
 func _ready():
     sample = get_parent().glv_sample
     glv_timer.timeout.connect(ecotick)
@@ -98,6 +100,7 @@ func ecotick():
     tick_count += 1
     #print_glv()
     densities_update.emit(densities)
+    densities_update_drivers.emit(densities, mutual_delta, growth_delta)
 
 func print_glv():
     print('\n%d' % [tick_count])
@@ -133,4 +136,15 @@ func add_species(species_name : String, new_mutuality : Array, new_growth : floa
 
     num_species_changed.emit(num_species, species_names)
     
+# Gaia
+const DEFENSE_THRESHOLD : float = 0.05
+const RELAX_THRESHOLD : float = 5
+func gaia_adaptation(species_id : int, new_density : float, mutual_delta : Array[float]):
+    if new_density < DEFENSE_THRESHOLD:
+        var archenemy : int = mutual_delta.find(mutual_delta.max())
+        #specialize_against(species_id, archenemy)
+    elif new_density > RELAX_THRESHOLD:
+        var archenemy : int = mutual_delta.find(mutual_delta.max())
+        #generalize_against(species_id, archenemy)
+
 
