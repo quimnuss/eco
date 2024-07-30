@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bwehb37iwp8k5"]
+[gd_scene load_steps=6 format=3 uid="uid://bwehb37iwp8k5"]
 
 [ext_resource type="Script" path="res://actors/migration_line.gd" id="1_j1vie"]
 [ext_resource type="Script" path="res://scripts/drawn_path2d.gd" id="2_ncrjm"]
 [ext_resource type="Script" path="res://ui/migration_panel.gd" id="3_0c82o"]
+[ext_resource type="StyleBox" uid="uid://b4j6hug60aq8" path="res://ui/panel_stylebox.tres" id="3_1pg7r"]
 
 [sub_resource type="Curve2D" id="Curve2D_7ht1x"]
 _data = {
@@ -26,12 +27,13 @@ offset_bottom = 136.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_override_constants/separation = 20
 alignment = 2
 
 [node name="Panel" type="Panel" parent="Path2D/Control"]
-visible = false
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+theme_override_styles/panel = ExtResource("3_1pg7r")
 script = ExtResource("3_0c82o")
 
 [node name="GridContainer" type="GridContainer" parent="Path2D/Control/Panel"]

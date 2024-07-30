@@ -33,7 +33,7 @@ func _ready():
         path_2d.ends_down = false
     var migration_points : PackedVector2Array = path_2d.curve.get_baked_points()
     interaction_point = Vector2(migration_points[floor(len(migration_points)/2.0)]) + Vector2(0,-30)
-    migration_popup.global_position = interaction_point + self.global_position - Vector2(0,panel.get_custom_minimum_size().y)
+    migration_popup.global_position = interaction_point + self.global_position - Vector2(0,panel.get_custom_minimum_size().y + 20)
     
     for i in range(len(species_names)):
         var species_name : String = species_names[i]

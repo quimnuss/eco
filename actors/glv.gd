@@ -110,6 +110,8 @@ func add_species(species_name : String, new_mutuality : Array, new_growth : floa
     species_names.push_back(species_name)
     self.num_species += 1
     growth_delta.resize(num_species)
+    immigration.resize(num_species)
+    emigration.resize(num_species)
     
     mutual_delta.resize(num_species)
     for mutual in mutual_delta:

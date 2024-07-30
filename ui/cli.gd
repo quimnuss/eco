@@ -45,11 +45,11 @@ func process_command(new_text : String):
         return
     match tokens[0]:
         'mod':
-            if len(tokens) > 4: # add <name> <growth> <mutuality : Array>
-                var species_name : String = tokens[1]
-                var growth : float = float(tokens[2])
-                var mutuality : Array = Array(tokens.slice(3)).map(to_float)
-                var island : int = 0
+            if len(tokens) > 4: # mod <island> <name> <growth> <mutuality : Array>
+                var island : int = int(tokens[1])
+                var species_name : String = tokens[2]
+                var growth : float = float(tokens[3])
+                var mutuality : Array = Array(tokens.slice(4)).map(to_float)
                 change_species.emit(island, species_name, growth, mutuality)
 
 func to_float(text : String):

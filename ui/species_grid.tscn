@@ -1,23 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxdx1cm2a7b4t"]
 
 [ext_resource type="Script" path="res://ui/species_grid.gd" id="1_naxn0"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0a1o6"]
-bg_color = Color(0.12549, 0.52549, 0.560784, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.0980392, 0.396078, 0.396078, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 10.0
-expand_margin_top = 10.0
-expand_margin_right = 10.0
-expand_margin_bottom = 10.0
-shadow_size = 10
+[ext_resource type="StyleBox" uid="uid://b4j6hug60aq8" path="res://ui/panel_stylebox.tres" id="2_xmstb"]
 
 [node name="SpeciesGrid" type="Control"]
 layout_mode = 3
@@ -29,7 +13,7 @@ num_species = 4
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_0a1o6")
+theme_override_styles/panel = ExtResource("2_xmstb")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2

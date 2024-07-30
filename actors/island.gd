@@ -49,7 +49,8 @@ func change_immigration(from_island : Island, to_island : Island, species_name :
         migration_matrix[Vector2i(to_island.island_id, from_island.island_id)] = migration_value
         glv.immigration[species_index] += migration_value - previous_migration
     else:
-        # new species!
+        # TODO new species! where do we get the definition? we probably need a global dictionary
+        # and islands apply modifiers?
         pass
 
 func _on_change_species(island : int, species_name : String, growth : float, mutuality : Array):
