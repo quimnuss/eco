@@ -179,6 +179,13 @@ rates, less mutual interference and higher predation of fast predators.
 We think predicting the consequences of trait modification is hard enough to let the player tweak the
 numbers directly, even if it can be artistically displayed differently.
 
+Later the player will have evolution points, which will let him specialize one species to gain benefit
+from one specific species or type of species at a loss of generalization. Basically the player must choose
+between specializing or generalizing. Something that also happens naturally via game mechanic by which
+as one species heads towards extinction it gains resistance against the main predators at a loss of
+resistance against the lesser predators. Or, on the opposite scenario, in an abundance of resources,
+efficiency is lost. These mechanics have been observed in nature.
+
 #### Migration
 
 To establish migrations the player clicks one island and it's target. Then chooses species, amount and

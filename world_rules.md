@@ -19,3 +19,12 @@ If we simplify a simbiotic relationship as if it were a single species, it would
 * SR01: The higher in the food chain, the more negative is the growth and self mutuality
 
 Predators density usually is lower and harder to maintain than more resilient organisms
+
+* SR02: Especialization forces losing other especializations
+
+Predators that spend points specializing on a prey type lose efficacy against other species.
+and viceversa (SR03)
+
+* SR03: Generalization forces losing specialization
+
+See SR02
