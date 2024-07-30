@@ -37,18 +37,26 @@ func _ready():
     
     for i in range(len(species_names)):
         var species_name : String = species_names[i]
-        var species_label : Label = Label.new()
-        species_label.set_text(species_name)
-        grid_container.add_child(species_label)
-        var one_square = preload('res://ui/range_rect.tscn').instantiate()
-        one_square.is_growth = true
-        one_square.index_i = i
-        one_square.index_j = -1
-        one_square.change_growth.connect(_on_change_migration_rate)
-        grid_container.add_child(one_square)
+        add_species_ui(species_name)
 
-func set_species(new_species_names : Array[String]):
-    self.species_names = new_species_names    
+func add_species_ui(new_species_name : String):
+    var i = species_names.find(new_species_name)
+    var species_label : Label = Label.new()
+    species_label.set_text(new_species_name)
+    grid_container.add_child(species_label)
+    var one_square = preload('res://ui/range_rect.tscn').instantiate()
+    one_square.is_growth = true
+    one_square.index_i = i
+    one_square.index_j = -1
+    one_square.change_growth.connect(_on_change_migration_rate)
+    grid_container.add_child(one_square)
+
+func add_species(new_species_names : Array[String]):
+    # TODO handle deletion?
+    for species_name : String in new_species_names:
+        if not self.species_names.has(species_name):
+            self.species_names.append(species_name)
+            add_species_ui(species_name)
 
 func _on_change_migration_rate(index_i : int, new_value : float):
     var species_name : String = species_names[index_i]

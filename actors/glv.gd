@@ -20,8 +20,11 @@ var sample : GLVSample
 
 var growth_delta : Array[float]
 var mutual_delta : Array[Array]
+const MAX_DELTA : float = 0.5
 
 var tick_count : int = 0
+
+const EPSILON : float = 0.0001
 
 signal densities_update(new_densities : Array[float])
 signal num_species_changed(new_num_species : int, species_names : Array[String])
@@ -76,10 +79,21 @@ func ecotick():
             mutual_delta[si][sj] = densities[si] * mutual * densities[sj]
     
     # add everything up
+    var delta_densities : Array[float]
+    delta_densities.resize(num_species)
+    delta_densities.fill(0)
     for si in range(num_species):
-        densities[si] += growth_delta[si] 
+        delta_densities[si] += growth_delta[si] 
         for sj in range(num_species):
-            densities[si] += mutual_delta[si][sj]
+            delta_densities[si] += mutual_delta[si][sj]
+        delta_densities[si] = clamp(delta_densities[si], -MAX_DELTA, MAX_DELTA)
+            
+    for si in range(num_species):
+        densities[si] += delta_densities[si]
+        if densities[si] < EPSILON:
+            densities[si] = 0
+        densities[si] = clamp(densities[si],0,10000)
+    
 
     tick_count += 1
     #print_glv()

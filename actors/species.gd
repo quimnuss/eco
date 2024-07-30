@@ -18,4 +18,8 @@ func set_species_name(species_name : String):
 func update_density(density : float):
     line_2d.set_point_position(1, unitary_bar_size * density)
     density_label.set_text("%0.2f" % density)
+    if density <= 0:
+        label.set("theme_override_colors/font_color",Color.DARK_RED)
+    else:
+        label.set("theme_override_colors/font_color",Color.GHOST_WHITE)
 
