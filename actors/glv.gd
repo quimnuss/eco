@@ -11,6 +11,9 @@ var growth : Array[float]
 
 var mutuality : Array[Array]
 
+var immigration : Array[float]
+var emigration : Array[float]
+
 var sample : GLVSample
 
 @onready var glv_timer : Timer = $GLVTimer
@@ -40,6 +43,9 @@ func _ready():
 
     growth_delta.resize(num_species)
     mutual_delta.resize(num_species)
+    immigration.resize(num_species)
+    emigration.resize(num_species)
+    
     for mutual in mutual_delta:
         mutual.resize(num_species)
     
@@ -64,14 +70,14 @@ func from_resource():
 
 func ecotick():
     for si in range(num_species):
-        growth_delta[si] = densities[si] * growth[si]
+        growth_delta[si] = densities[si] * (growth[si] + immigration[si] - emigration[si])
         for sj in range(num_species):
             var mutual : float = mutuality[si][sj]
             mutual_delta[si][sj] = densities[si] * mutual * densities[sj]
     
     # add everything up
     for si in range(num_species):
-        densities[si] += growth_delta[si]
+        densities[si] += growth_delta[si] 
         for sj in range(num_species):
             densities[si] += mutual_delta[si][sj]
 

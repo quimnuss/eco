@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwehb37iwp8k5"]
+
+[ext_resource type="Script" path="res://actors/migration_line.gd" id="1_j1vie"]
+[ext_resource type="Script" path="res://scripts/drawn_path2d.gd" id="2_ncrjm"]
+[ext_resource type="Script" path="res://ui/migration_panel.gd" id="3_0c82o"]
+
+[sub_resource type="Curve2D" id="Curve2D_7ht1x"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, -100, 237, 146, 0, -100, 0, 0, 664, 289)
+}
+point_count = 2
+
+[node name="MigrationLine" type="Node2D"]
+script = ExtResource("1_j1vie")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_7ht1x")
+script = ExtResource("2_ncrjm")
+
+[node name="Control" type="VBoxContainer" parent="Path2D"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_right = 100.0
+offset_bottom = 136.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 2
+
+[node name="Panel" type="Panel" parent="Path2D/Control"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+script = ExtResource("3_0c82o")
+
+[node name="GridContainer" type="GridContainer" parent="Path2D/Control/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 2
+
+[node name="MigrationButton" type="CheckButton" parent="Path2D/Control"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 1
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="toggled" from="Path2D/Control/MigrationButton" to="Path2D/Control/Panel" method="_on_check_button_toggled"]

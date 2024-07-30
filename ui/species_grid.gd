@@ -1,7 +1,9 @@
 extends Control
+class_name SpeciesGrid
+
 @onready var grid_container : GridContainer = $PanelContainer/VBoxContainer/GridContainer
 @onready var growths : HBoxContainer = $PanelContainer/VBoxContainer/Growths
-@export var square : Control
+@onready var island_label : Label = $PanelContainer/VBoxContainer/HBoxContainer/IslandLabel
 
 @export var num_species : int = 3
 
@@ -18,6 +20,9 @@ const EPSILON : float = 0.0001
 
 func _ready():
     refresh_grid()
+
+func set_island_name(island_name : String):
+    island_label.set_text(island_name)
 
 func refresh_grid():
     # Too late
@@ -93,7 +98,14 @@ func _process(delta):
         rebuild = false
         refresh_grid()
 
+    if is_following_mouse:
+        self.global_position = get_global_mouse_position()
+
 func _on_glv_species_changed(new_species_names : Array, mutuality : Array, growth : Array):
+    update_mutuality(new_species_names, mutuality)
+    update_growth(growth)
+
+func update_mutuality(new_species_names : Array, mutuality : Array):
     num_species = len(new_species_names)
     species_names = new_species_names
     refresh_grid()
@@ -111,10 +123,18 @@ func _on_glv_species_changed(new_species_names : Array, mutuality : Array, growt
                 square.max_value = self.max_mutuality
                 square.set_color(mutuality[i][j])
 
+func update_growth(growth : Array[float]):
     var growth_children : Array = growths.get_children()
     for i in range(num_species):
         var square : RangeRect = growth_children[i+1]
+        square.max_value = growth.max()
         square.set_color(growth[i])
 
 func _on_button_pressed():
     self.visible = false
+
+var is_following_mouse : bool = false
+
+func _on_title_gui_input(event):
+    if event is InputEventMouseButton:
+        is_following_mouse = event.is_pressed()
