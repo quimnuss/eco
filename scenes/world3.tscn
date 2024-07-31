@@ -46,33 +46,6 @@ example_glv_sample = SubResource("Resource_7wi82")
 
 [node name="MigrationLines" type="Node2D" parent="."]
 
-[node name="Island0" parent="." instance=ExtResource("11_q8qja")]
-position = Vector2(291, 212)
-island_id = 0
-glv_sample = ExtResource("8_mr4m2")
-
-[node name="Island1" parent="." instance=ExtResource("11_q8qja")]
-position = Vector2(800, 422)
-island_id = 1
-glv_sample = ExtResource("11_ci86w")
-
-[node name="Island2" parent="." instance=ExtResource("11_q8qja")]
-position = Vector2(990, 143)
-island_id = 2
-glv_sample = ExtResource("11_ci86w")
-
-[node name="Island3" parent="." instance=ExtResource("11_q8qja")]
-position = Vector2(386, 489)
-island_id = 3
-glv_sample = ExtResource("11_ci86w")
-
-[node name="Island4" parent="." instance=ExtResource("11_q8qja")]
-position = Vector2(581, 121)
-island_id = 4
-glv_sample = ExtResource("11_ci86w")
-
-[node name="Cli" parent="." instance=ExtResource("11_obbtr")]
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(563, 330)
 limit_left = 0
@@ -93,6 +66,23 @@ position = Vector2(566, 324)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/CanvasLayer/Area2D"]
 shape = SubResource("RectangleShape2D_t6xm6")
+
+[node name="Island0" parent="." instance=ExtResource("11_q8qja")]
+position = Vector2(273, 254)
+island_id = 0
+glv_sample = ExtResource("8_mr4m2")
+
+[node name="Island1" parent="." instance=ExtResource("11_q8qja")]
+position = Vector2(602, 266)
+island_id = 1
+glv_sample = ExtResource("11_ci86w")
+
+[node name="Island2" parent="." instance=ExtResource("11_q8qja")]
+position = Vector2(909, 260)
+island_id = 2
+glv_sample = ExtResource("11_ci86w")
+
+[node name="Cli" parent="." instance=ExtResource("11_obbtr")]
 
 [connection signal="mouse_entered" from="Camera2D/CanvasLayer/Area2D" to="Camera2D" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Camera2D/CanvasLayer/Area2D" to="Camera2D" method="_on_area_2d_mouse_exited"]

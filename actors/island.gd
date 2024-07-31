@@ -52,9 +52,7 @@ func change_emigration(from_island : Island, to_island : Island, species_name : 
 func change_immigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
     var species_index : int = glv.species_names.find(species_name)
     if species_index != -1:
-        var previous_migration : float = migration_matrix.get(Vector2i(from_island.island_id,to_island.island_id), 0)
-        migration_matrix[Vector2i(to_island.island_id, from_island.island_id)] = migration_value
-        glv.immigration[species_index] += migration_value - previous_migration
+        apply_migration(species_index, from_island, to_island, migration_value)        
     else:
         # TODO new species! where do we get the definition? we probably need a global dictionary
         # and islands apply modifiers?
@@ -65,8 +63,15 @@ func change_immigration(from_island : Island, to_island : Island, species_name :
         self_mutual_array.resize(glv.num_species+1)
         self_mutual_array[glv.num_species] = from_island.glv.mutuality[from_island_species_index][from_island_species_index]
         glv.add_species(species_name, self_mutual_array, from_island.glv.growth[from_island_species_index])
+        species_changed.emit(glv.species_names)
         glv.densities[species_index] = migration_value
+        apply_migration(species_index, from_island, to_island, migration_value)
         species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
+
+func apply_migration(species_index : int, from_island : Island, to_island : Island, migration_value : float):
+    var previous_migration : float = migration_matrix.get(Vector2i(from_island.island_id,to_island.island_id), 0)
+    migration_matrix[Vector2i(from_island.island_id, to_island.island_id)] = migration_value
+    glv.immigration[species_index] = glv.immigration[species_index] + migration_value - previous_migration
 
 func _on_change_species(island : int, species_name : String, growth : float, mutuality : Array):
     if island_id == island:

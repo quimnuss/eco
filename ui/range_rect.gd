@@ -17,7 +17,7 @@ signal change_growth(index_i : int, new_value : float)
 
 func _ready():
     self.label.set_text("%d" % (self.value*1000))
-    pass
+    self.set_tooltip_text("%0.4f" % (self.value*1000))
 
 func gradient_color(ratio : float) -> Color:
     var color_palette : Array = [
@@ -44,6 +44,8 @@ func set_color(new_value : float):
     self.set_modulate(g_color)
     self.value = new_value
     self.label.set_text("%d" % (self.value*1000))
+    self.set_tooltip_text("%0.4f" % (self.value*1000))
+
 
 func _gui_input(event):
     if event is InputEventMouseButton and event.is_pressed():

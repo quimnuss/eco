@@ -57,6 +57,8 @@ func _ready():
     num_species_changed.emit(num_species, Array())
 
 func restart(new_sample : GLVSample):
+    if get_parent().island_id == 1:
+        print('foo')
     sample = new_sample
     from_resource()
     growth_delta.resize(num_species)
@@ -68,10 +70,10 @@ func restart(new_sample : GLVSample):
 
 func from_resource():
     self.num_species = sample.num_species
-    self.species_names = sample.species_names
-    self.densities = sample.densities
-    self.growth = sample.growth
-    self.mutuality = sample.mutuality
+    self.species_names = sample.species_names.duplicate()
+    self.densities = sample.densities.duplicate()
+    self.growth = sample.growth.duplicate()
+    self.mutuality = sample.mutuality.duplicate(true)
 
 func ecotick():
     for si in range(num_species):
@@ -151,7 +153,8 @@ func gaia_adaptation():
     for idx in range(num_species):
         if densities[idx] < DEFENSE_THRESHOLD:
             var archenemy : int = mutual_delta[idx].find(mutual_delta[idx].min())
-            specialize_defense_against(idx, archenemy)
+            var archfriend : int = mutual_delta[idx].find(mutual_delta[idx].max())
+            specialize_against(idx, archenemy, archfriend)
             has_adapted = true
         elif densities[idx] > RELAX_THRESHOLD:
             var archenemy : int = mutual_delta[idx].find(mutual_delta[idx].max())
@@ -162,13 +165,20 @@ func gaia_adaptation():
 
 
 # Defensive Specialize 1: decrease 1%. the archimutuality and increase 1%. the other negative mutuals
-func specialize_defense_against(species_id, archenemy):
+func specialize_against(species_id : int, archenemy : int, archfriend : int):
     for i in range(num_species):
+        if i == species_id:
+            continue
         var mutual = mutuality[species_id][i]
         if mutual < 0:# and i != species_id:
             var factor = 0.999 if i == archenemy else 1.001
             mutuality[species_id][i] = factor * mutuality[species_id][i]
             if mutuality[i][species_id] > 0:
+                mutuality[i][species_id] = factor * mutuality[i][species_id]
+        elif mutual > 0:
+            var factor = 1.001 if i == archfriend else 0.999
+            mutuality[species_id][i] = factor * mutuality[species_id][i]
+            if mutuality[i][species_id] < 0:
                 mutuality[i][species_id] = factor * mutuality[i][species_id]
 
 func generalize_predation_against(species_id, archenemy):
