@@ -22,6 +22,9 @@ func set_species_names(species_names):
 
 func update_densities(densities : Array[float]):
     for i in range(len(densities)):
+        if i >= len(lines):
+            print('silencing size line error')
+            continue
         var density : float = densities[i]
         lines[i].update_density(density)
 
