@@ -3,6 +3,13 @@ extends Node2D
 @onready var cli = $Cli
 @onready var migration_lines = $MigrationLines
 
+@export var use_gaia : bool = Settings.use_gaia  :
+    set(new_use_gaia):
+        use_gaia = new_use_gaia
+        Settings.use_gaia = new_use_gaia
+    get:
+        return Settings.use_gaia
+
 func _ready():
     var islands : Array = get_tree().get_nodes_in_group('islands')
     for island : Island in islands:

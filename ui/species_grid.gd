@@ -114,7 +114,7 @@ func update_mutuality(new_species_names : Array, mutuality : Array):
     for species_mutual : Array in mutuality:
         new_max_mutuality = max(new_max_mutuality, abs(species_mutual.max()), abs(species_mutual.min()))
     self.max_mutuality = new_max_mutuality
-    prints('mutuality',mutuality,'max_mutuality',max_mutuality)
+    #prints('mutuality',mutuality,'max_mutuality',max_mutuality)
     for i in range(num_species):
         for j in range(num_species):
             if abs(mutuality[i][j]) > 0.0001:

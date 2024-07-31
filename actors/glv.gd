@@ -97,7 +97,8 @@ func ecotick():
         densities[si] = clamp(densities[si],0,10000)
     
     # gaia karma
-    gaia_adaptation()
+    if Settings.use_gaia:
+        gaia_adaptation()
 
     tick_count += 1
     #print_glv()
@@ -146,33 +147,36 @@ const RELAX_THRESHOLD : float = 5
 func gaia_adaptation():
     if num_species == 0:
         return
-    var has_adapted : bool = true
+    var has_adapted : bool = false
     for idx in range(num_species):
         if densities[idx] < DEFENSE_THRESHOLD:
-            var archenemy : int = mutual_delta[idx].find(mutual_delta.min())
+            var archenemy : int = mutual_delta[idx].find(mutual_delta[idx].min())
             specialize_defense_against(idx, archenemy)
+            has_adapted = true
         elif densities[idx] > RELAX_THRESHOLD:
-            var archenemy : int = mutual_delta[idx].find(mutual_delta.max())
+            var archenemy : int = mutual_delta[idx].find(mutual_delta[idx].max())
             generalize_predation_against(idx, archenemy)
-        else:
-            has_adapted = false
+            has_adapted = true
     if has_adapted:
         species_changed.emit(species_names, mutuality, growth)
+
 
 # Defensive Specialize 1: decrease 1%. the archimutuality and increase 1%. the other negative mutuals
 func specialize_defense_against(species_id, archenemy):
     for i in range(num_species):
         var mutual = mutuality[species_id][i]
-        if mutual < 0:
-            var factor = 0.9 if i == archenemy else 1.1
-            mutuality[species_id][archenemy] = factor * mutuality[species_id][archenemy]
-            mutuality[archenemy][species_id] = (1-factor) * mutuality[archenemy][species_id]
+        if mutual < 0:# and i != species_id:
+            var factor = 0.999 if i == archenemy else 1.001
+            mutuality[species_id][i] = factor * mutuality[species_id][i]
+            if mutuality[i][species_id] > 0:
+                mutuality[i][species_id] = factor * mutuality[i][species_id]
 
 func generalize_predation_against(species_id, archenemy):
     for i in range(num_species):
         var mutual = mutuality[species_id][i]
         if mutual > 0:
-            var factor = 0.9 if i == archenemy else 1.1
-            mutuality[species_id][archenemy] = factor * mutuality[species_id][archenemy]
-            mutuality[archenemy][species_id] = (1-factor) * mutuality[archenemy][species_id]
+            var factor = 0.999 if i == archenemy else 1.001
+            mutuality[species_id][i] = factor * mutuality[species_id][i]
+            if mutuality[i][species_id] < 0:
+                mutuality[i][species_id] = factor * mutuality[i][species_id]
 
