@@ -45,7 +45,17 @@ func set_color(new_value : float):
     self.value = new_value
     self.label.set_text("%d" % (self.value*1000))
     self.set_tooltip_text("%0.4f" % (self.value*1000))
-
+    #if is_instance_valid(ctooltip):
+        #ctooltip.set_text("%0.4f" % (self.value*1000))
+        #ctooltip.set_tooltip_text("%0.4f" % (self.value*1000))
+    #
+#var ctooltip : Label
+#
+#func _make_custom_tooltip(for_text):
+    #ctooltip = Label.new()
+    #ctooltip.set_text("%0.4f" % (self.value*1000))
+    ##ctooltip.text = for_text
+    #return ctooltip
 
 func _gui_input(event):
     if event is InputEventMouseButton and event.is_pressed():
