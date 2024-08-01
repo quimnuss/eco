@@ -48,12 +48,12 @@ func set_color(new_value : float):
     #if is_instance_valid(ctooltip):
         #ctooltip.set_text("%0.4f" % (self.value*1000))
         #ctooltip.set_tooltip_text("%0.4f" % (self.value*1000))
-    #
+    
 #var ctooltip : Label
 #
 #func _make_custom_tooltip(for_text):
     #ctooltip = Label.new()
-    #ctooltip.set_text("%0.4f" % (self.value*1000))
+    ##ctooltip.set_text("%0.3f" % (self.value*1000))
     ##ctooltip.text = for_text
     #return ctooltip
 
@@ -70,10 +70,3 @@ func _gui_input(event):
             else:
                 change_mutuality.emit(index_i, index_j, self.value)
 
-func _on_mouse_entered():
-    #self.label.visible = true
-    pass
-
-func _on_mouse_exited():
-    #self.label.visible = false
-    pass
