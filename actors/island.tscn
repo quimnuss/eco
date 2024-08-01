@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bu1g3ij4mtfhj"]
+[gd_scene load_steps=11 format=3 uid="uid://bu1g3ij4mtfhj"]
 
 [ext_resource type="Script" path="res://actors/island.gd" id="1_0d0km"]
 [ext_resource type="Script" path="res://actors/glv.gd" id="2_pg5or"]
 [ext_resource type="TileSet" uid="uid://bxwxldjtw4p8n" path="res://world/island_tileset.tres" id="4_bmc6s"]
+[ext_resource type="Script" path="res://actors/island_model.gd" id="4_l35h8"]
 [ext_resource type="Script" path="res://actors/pops.gd" id="4_q8gvr"]
 [ext_resource type="Script" path="res://scripts/highlighter.gd" id="5_hc6sn"]
 [ext_resource type="PackedScene" uid="uid://cxdx1cm2a7b4t" path="res://ui/species_grid.tscn" id="6_e82f1"]
@@ -31,6 +32,9 @@ format = 2
 [node name="GLV" type="Node2D" parent="."]
 position = Vector2(-250, -143)
 script = ExtResource("2_pg5or")
+
+[node name="IslandModel" type="Node" parent="GLV"]
+script = ExtResource("4_l35h8")
 
 [node name="GLVTimer" type="Timer" parent="GLV"]
 wait_time = 0.1

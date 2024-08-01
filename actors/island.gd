@@ -19,29 +19,35 @@ signal species_changed(species_names : Array[String])
 func _ready():
     if OS.is_debug_build() and self.owner == null:
         self.global_position = get_viewport_rect().size/2
-        glv_sample = preload("res://data/3_sample_0.tres")
-        glv.restart(glv_sample)
 
     add_to_group('islands')
     if island_id == -1:
         island_id = get_tree().get_nodes_in_group('islands').find(self)
-    
+
     species_grid.set_island_name('Island %d' % island_id)
-    
-    pops.set_num_species(glv.num_species)
-    pops.set_species_names(glv.species_names)
-    
-    species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
-    
+
+    init_everything()
+    set_island_pattern()
+
+    glv.species_names_changed.connect(pops.model_changed)
+
+    var island_rect : Rect2i = tile_map.get_used_rect()
+    collision_shape_2d.shape.size = island_rect.size*16
+
+func set_island_pattern():
     # apply random pattern
-    const NUM_PATTERNS : int = 9   
+    const NUM_PATTERNS : int = 9
     var pattern : TileMapPattern = tile_map.tile_set.get_pattern(randi() % NUM_PATTERNS)
     var offset : Vector2 = -pattern.get_size()/2
     tile_map.set_pattern(0, offset, pattern)
 
-    var island_rect : Rect2i = tile_map.get_used_rect()
-    collision_shape_2d.shape.size = island_rect.size*16
-    
+func init_everything():
+
+    pops.set_num_species(glv.num_species)
+    pops.set_species_names(glv.species_names)
+
+    species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
+
 
 func change_emigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
     var species_index : int = glv.species_names.find(species_name)
@@ -52,7 +58,7 @@ func change_emigration(from_island : Island, to_island : Island, species_name : 
 func change_immigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
     var species_index : int = glv.species_names.find(species_name)
     if species_index != -1:
-        apply_migration(species_index, from_island, to_island, migration_value)        
+        apply_migration(species_index, from_island, to_island, migration_value)
     else:
         # TODO new species! where do we get the definition? we probably need a global dictionary
         # and islands apply modifiers?

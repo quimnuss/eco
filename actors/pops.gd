@@ -18,7 +18,10 @@ func set_num_species(new_num_species : int):
 func set_species_names(species_names):
     for i in range(len(lines)):
         lines[i].set_species_name(species_names[i])
-        
+
+func model_changed(species_names : Array[String]):
+    set_num_species(len(species_names))
+    set_species_names(species_names)
 
 func update_densities(densities : Array[float]):
     for i in range(len(densities)):

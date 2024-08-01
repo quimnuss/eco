@@ -1,6 +1,8 @@
 extends Node2D
 class_name GLV
 
+@onready var island_model : IslandModel = $IslandModel
+
 var num_species : int = 10
 
 var species_names : Array[String]
@@ -33,47 +35,21 @@ signal species_changed(species_names : Array[String], mutuality : Array[Array], 
 
 signal densities_update_drivers(new_densities : Array[float], mutual_delta : Array[Array], growth_delta : Array[float])
 
-func _ready():
-    sample = get_parent().glv_sample
-    glv_timer.timeout.connect(ecotick)
-    if sample:
-        from_resource()
-    else:
-        species_names.resize(num_species)
-        densities.resize(num_species)
-        growth.resize(num_species)
-        mutuality.resize(num_species)
-        for mutual in mutuality:
-            mutual.resize(num_species)
+signal species_names_changed(species_names : Array[String])
 
-    growth_delta.resize(num_species)
-    mutual_delta.resize(num_species)
-    immigration.resize(num_species)
-    emigration.resize(num_species)
-    
-    for mutual in mutual_delta:
-        mutual.resize(num_species)
-    
+func _ready():
+    glv_timer.timeout.connect(ecotick)
     num_species_changed.emit(num_species, Array())
 
 func restart(new_sample : GLVSample):
-    if get_parent().island_id == 1:
-        print('foo')
     sample = new_sample
     from_resource()
     growth_delta.resize(num_species)
-    
+
     mutual_delta.resize(num_species)
     for mutual in mutual_delta:
         mutual.resize(num_species)
     num_species_changed.emit(num_species, Array())
-
-func from_resource():
-    self.num_species = sample.num_species
-    self.species_names = sample.species_names.duplicate()
-    self.densities = sample.densities.duplicate()
-    self.growth = sample.growth.duplicate()
-    self.mutuality = sample.mutuality.duplicate(true)
 
 func ecotick():
     for si in range(num_species):
@@ -81,23 +57,23 @@ func ecotick():
         for sj in range(num_species):
             var mutual : float = mutuality[si][sj]
             mutual_delta[si][sj] = densities[si] * mutual * densities[sj]
-    
+
     # add everything up
     var delta_densities : Array[float]
     delta_densities.resize(num_species)
     delta_densities.fill(0)
     for si in range(num_species):
-        delta_densities[si] += growth_delta[si] 
+        delta_densities[si] += growth_delta[si]
         for sj in range(num_species):
             delta_densities[si] += mutual_delta[si][sj]
         delta_densities[si] = clamp(delta_densities[si], -MAX_DELTA, MAX_DELTA)
-            
+
     for si in range(num_species):
         densities[si] += delta_densities[si]
         if densities[si] < EPSILON:
             densities[si] = 0
         densities[si] = clamp(densities[si],0,10000)
-    
+
     # gaia karma
     if Settings.use_gaia:
         gaia_adaptation()
@@ -111,7 +87,7 @@ func print_glv():
     print('\n%d' % [tick_count])
     for si in range(num_species):
         print("%s %f" % [species_names[si], densities[si]])
-            
+
 func modify_species(index : int, new_mutuality : Array, new_growth : float):
     for i in range(num_species):
         mutuality[index][i] = new_mutuality[i]
@@ -134,13 +110,13 @@ func add_species(species_name : String, new_mutuality : Array, new_growth : floa
     growth_delta.resize(num_species)
     immigration.resize(num_species)
     emigration.resize(num_species)
-    
+
     mutual_delta.resize(num_species)
     for mutual in mutual_delta:
         mutual.resize(num_species)
 
     num_species_changed.emit(num_species, species_names)
-    
+
 # Gaia
 const DEFENSE_THRESHOLD : float = 0.5
 const RELAX_THRESHOLD : float = 5
