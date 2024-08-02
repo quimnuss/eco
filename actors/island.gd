@@ -20,7 +20,6 @@ func _ready():
     if OS.is_debug_build() and self.owner == null:
         self.global_position = get_viewport_rect().size/2
         glv_sample = preload("res://data/3_sample_0.tres")
-        glv.restart(glv_sample)
 
     add_to_group('islands')
     if island_id == -1:
@@ -28,10 +27,7 @@ func _ready():
     
     species_grid.set_island_name('Island %d' % island_id)
     
-    pops.set_num_species(glv.num_species)
-    pops.set_species_names(glv.species_names)
-    
-    species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
+    init_everything()
     
     # apply random pattern
     const NUM_PATTERNS : int = 9   
@@ -41,7 +37,10 @@ func _ready():
 
     var island_rect : Rect2i = tile_map.get_used_rect()
     collision_shape_2d.shape.size = island_rect.size*16
-    
+
+func init_everything():
+    pops.set_species_names(glv.species_names)
+    species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
 
 func change_emigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
     var species_index : int = glv.species_names.find(species_name)

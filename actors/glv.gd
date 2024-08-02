@@ -1,7 +1,7 @@
 extends Node2D
 class_name GLV
 
-var num_species : int = 10
+var num_species : int = 0
 
 var species_names : Array[String]
 
@@ -27,7 +27,7 @@ var tick_count : int = 0
 const EPSILON : float = 0.0001
 
 signal densities_update(new_densities : Array[float])
-signal num_species_changed(new_num_species : int, species_names : Array[String])
+signal num_species_changed(species_names : Array[String])
 
 signal species_changed(species_names : Array[String], mutuality : Array[Array], growth : Array)
 
@@ -38,35 +38,16 @@ func _ready():
     glv_timer.timeout.connect(ecotick)
     if sample:
         from_resource()
-    else:
-        species_names.resize(num_species)
-        densities.resize(num_species)
-        growth.resize(num_species)
-        mutuality.resize(num_species)
-        for mutual in mutuality:
+
+        growth_delta.resize(num_species)
+        mutual_delta.resize(num_species)
+        immigration.resize(num_species)
+        emigration.resize(num_species)
+        
+        for mutual in mutual_delta:
             mutual.resize(num_species)
-
-    growth_delta.resize(num_species)
-    mutual_delta.resize(num_species)
-    immigration.resize(num_species)
-    emigration.resize(num_species)
     
-    for mutual in mutual_delta:
-        mutual.resize(num_species)
-    
-    num_species_changed.emit(num_species, Array())
-
-func restart(new_sample : GLVSample):
-    if get_parent().island_id == 1:
-        print('foo')
-    sample = new_sample
-    from_resource()
-    growth_delta.resize(num_species)
-    
-    mutual_delta.resize(num_species)
-    for mutual in mutual_delta:
-        mutual.resize(num_species)
-    num_species_changed.emit(num_species, Array())
+        num_species_changed.emit(species_names)
 
 func from_resource():
     self.num_species = sample.num_species
@@ -139,7 +120,7 @@ func add_species(species_name : String, new_mutuality : Array, new_growth : floa
     for mutual in mutual_delta:
         mutual.resize(num_species)
 
-    num_species_changed.emit(num_species, species_names)
+    num_species_changed.emit(species_names)
     
 # Gaia
 const DEFENSE_THRESHOLD : float = 0.5

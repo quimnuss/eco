@@ -7,8 +7,6 @@ class_name SpeciesGrid
 
 @export var num_species : int = 3
 
-@export var rebuild : bool = false
-
 var species_names : Array[String]
 
 var max_mutuality : float
@@ -94,10 +92,6 @@ func create_species_label(index : int) -> Label:
     return species_name
 
 func _process(delta):
-    if rebuild:
-        rebuild = false
-        refresh_grid()
-
     if is_following_mouse:
         self.global_position = get_global_mouse_position()
 

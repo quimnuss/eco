@@ -22,7 +22,7 @@ func _ready():
                 var migration_line : MigrationLine = preload('res://actors/migration_line.tscn').instantiate()
                 migration_line.from_island = island
                 migration_line.to_island = island_to
-                var available_species : Array[String] = island.glv.species_names.duplicate() #+ island_to.glv.species_names
+                var available_species : Array[String] = island.glv.species_names.duplicate() + island_to.glv.species_names
                 migration_line.species_names = available_species
                 migration_line.change_migration.connect(island_to.change_immigration)
                 migration_line.change_migration.connect(island.change_emigration)

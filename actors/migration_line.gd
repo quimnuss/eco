@@ -7,7 +7,7 @@ class_name MigrationLine
 @export var from_island : Island
 @export var to_island : Island
 @onready var path_2d : Path2D = $Path2D
-@onready var panel : Panel = $Path2D/Control/Panel
+@onready var panel : PanelContainer = $Path2D/Control/Panel
 
 const LINE_OFFSET : Vector2 = Vector2(0,5)
 

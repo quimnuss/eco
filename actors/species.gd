@@ -7,10 +7,13 @@ class_name Species
 
 @export var unitary_bar_size : Vector2 = Vector2(20, 0)
 
+var start_text : String = "?"
+
 var height : float = 10
 
 func _ready():
     line_2d.default_color = Color(randf_range(0,1),randf_range(0,1),randf_range(0,1))
+    label.set_text(start_text)
 
 func set_species_name(species_name : String):
     label.set_text(species_name)

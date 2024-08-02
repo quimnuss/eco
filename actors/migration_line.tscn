@@ -30,7 +30,7 @@ size_flags_vertical = 8
 theme_override_constants/separation = 20
 alignment = 2
 
-[node name="Panel" type="Panel" parent="Path2D/Control"]
+[node name="Panel" type="PanelContainer" parent="Path2D/Control"]
 visible = false
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
@@ -39,9 +39,7 @@ theme_override_styles/panel = ExtResource("3_1pg7r")
 script = ExtResource("3_0c82o")
 
 [node name="GridContainer" type="GridContainer" parent="Path2D/Control/Panel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
 columns = 2
 
 [node name="MigrationButton" type="CheckButton" parent="Path2D/Control"]
