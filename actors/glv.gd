@@ -36,11 +36,18 @@ signal species_changed(species_names : Array[String], mutuality : Array[Array], 
 signal densities_update_drivers(new_densities : Array[float], mutual_delta : Array[Array], growth_delta : Array[float])
 
 func _ready():
+    # sorrynotsorry
     sample = get_parent().glv_sample
+    global_glv_sample = get_parent().global_glv_sample
+    var start_species_names : Array[String] = get_parent().start_species_names
+
     glv_timer.timeout.connect(ecotick)
     if sample:
         from_resource()
+    elif start_species_names:
+        from_names(start_species_names)
 
+    if sample or start_species_names:
         growth_delta.resize(num_species)
         mutual_delta.resize(num_species)
         immigration.resize(num_species)
@@ -57,6 +64,23 @@ func from_resource():
     self.densities = sample.densities.duplicate()
     self.growth = sample.growth.duplicate()
     self.mutuality = sample.mutuality.duplicate(true)
+
+func from_names(start_species_names : Array[String]):
+    self.num_species = len(start_species_names)
+    self.species_names = start_species_names
+    self.densities.resize(self.num_species)
+    self.densities.fill(1.0)
+    self.growth.clear()
+    self.mutuality.clear()
+    for species_name in start_species_names:
+        var species_index : int = global_glv_sample.species_names.find(species_name)
+        if species_index != -1:
+            self.growth.push_back(global_glv_sample.growth[species_index])
+            self.mutuality.push_back(Array())
+            for other_species_name in start_species_names:
+                var other_species_index : int = global_glv_sample.species_names.find(other_species_name)
+                var mutual : float = global_glv_sample.mutuality[species_index][other_species_index]
+                self.mutuality[-1].push_back(mutual)
 
 func ecotick():
     for si in range(num_species):
@@ -159,15 +183,16 @@ func gaia_adaptation():
         return
     var has_adapted : bool = false
     for idx in range(num_species):
-        if densities[idx] < DEFENSE_THRESHOLD:
-            var archenemy : int = mutual_delta[idx].find(mutual_delta[idx].min())
-            var archfriend : int = mutual_delta[idx].find(mutual_delta[idx].max())
-            specialize_against(idx, archenemy, archfriend)
-            has_adapted = true
-        elif densities[idx] > RELAX_THRESHOLD:
-            var archenemy : int = mutual_delta[idx].find(mutual_delta[idx].max())
-            generalize_predation_against(idx, archenemy)
-            has_adapted = true
+        if densities[idx] > 0:
+            if densities[idx] < DEFENSE_THRESHOLD:
+                var archenemy : int = mutual_delta[idx].find(mutual_delta[idx].min())
+                var archfriend : int = mutual_delta[idx].find(mutual_delta[idx].max())
+                specialize_against(idx, archenemy, archfriend)
+                has_adapted = true
+            elif densities[idx] > RELAX_THRESHOLD:
+                var archenemy : int = mutual_delta[idx].find(mutual_delta[idx].max())
+                generalize_predation_against(idx, archenemy)
+                has_adapted = true
     if has_adapted:
         species_changed.emit(species_names, mutuality, growth)
 

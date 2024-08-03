@@ -2,8 +2,9 @@ extends Node2D
 class_name Island
 
 @export var island_id : int = -1
-@export var glv_sample : GLVSample
 
+@export var start_species_names : Array[String]
+@export var glv_sample : GLVSample
 @export var global_glv_sample : GLVSample = preload("res://data/3_sample_2_negative_growth.tres")
 
 @onready var highlight : Polygon2D = $Highlight
@@ -14,7 +15,7 @@ class_name Island
 @onready var pops = $Pops
 @onready var species_grid : SpeciesGrid = $SpeciesGrid
 
-var migration_matrix : Dictionary = {}
+var migration_matrix : Dictionary = {} # Vector3i(id_from, id_to, species_index)
 
 signal island_selected(island_id : int)
 signal species_changed(species_names : Array[String])
@@ -26,6 +27,7 @@ func _ready():
         self.global_position = get_viewport_rect().size/2
         glv_sample = preload("res://data/3_sample_0.tres")
 
+    # unnecessary since we do get_parent on glv...
     glv.global_glv_sample = global_glv_sample
 
     add_to_group('islands')
@@ -43,6 +45,7 @@ func _ready():
     tile_map.set_pattern(0, offset, pattern)
 
     var island_rect : Rect2i = tile_map.get_used_rect()
+    collision_shape_2d.shape = collision_shape_2d.shape.duplicate()
     collision_shape_2d.shape.size = island_rect.size*16
 
 func init_everything():
@@ -51,11 +54,21 @@ func init_everything():
 
 func change_emigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
     var species_index : int = glv.species_names.find(species_name)
-    var previous_migration : float = migration_matrix.get(Vector2i(from_island.island_id,to_island.island_id), 0)
-    migration_matrix[Vector2i(from_island.island_id, to_island.island_id)] = migration_value
+    var previous_migration : float = migration_matrix.get(Vector3i(from_island.island_id, to_island.island_id, species_index), 0)
+    migration_matrix[Vector3i(from_island.island_id, to_island.island_id, species_index)] = migration_value
     glv.emigration[species_index] += migration_value - previous_migration
 
+func is_immigrating(from_island : Island, to_island: Island, species_name : String) -> bool:
+    if species_name not in self.glv.species_names:
+        return false
+    # we could remove this:
+    var species_index : int = self.glv.species_names.find(species_name)
+    return migration_matrix.get(Vector3i(from_island.island_id, to_island.island_id, species_index), 0) != 0
+
+
 func change_immigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
+    if migration_value == 0 and not is_immigrating(from_island, to_island, species_name):
+        return
     var species_index : int = glv.species_names.find(species_name)
     if species_index != -1:
         apply_migration(species_index, from_island, to_island, migration_value)
@@ -67,8 +80,8 @@ func change_immigration(from_island : Island, to_island : Island, species_name :
         species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
 
 func apply_migration(species_index : int, from_island : Island, to_island : Island, migration_value : float):
-    var previous_migration : float = migration_matrix.get(Vector2i(from_island.island_id,to_island.island_id), 0)
-    migration_matrix[Vector2i(from_island.island_id, to_island.island_id)] = migration_value
+    var previous_migration : float = migration_matrix.get(Vector3i(from_island.island_id,to_island.island_id, species_index), 0)
+    migration_matrix[Vector3i(from_island.island_id, to_island.island_id, species_index)] = migration_value
     glv.immigration[species_index] = glv.immigration[species_index] + migration_value - previous_migration
 
 func _on_change_species(island : int, species_name : String, growth : float, mutuality : Array):

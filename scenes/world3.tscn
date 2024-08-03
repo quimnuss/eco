@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dr5xf8vqbbqk"]
+[gd_scene load_steps=12 format=3 uid="uid://derqvgasptu5u"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_ikrqe"]
 [ext_resource type="Script" path="res://actors/glv_sample_creator.gd" id="2_3v2uy"]
@@ -7,8 +7,8 @@
 [ext_resource type="Resource" uid="uid://5pobprjlyqrf" path="res://data/3_sample_2_negative_growth.tres" id="8_mr4m2"]
 [ext_resource type="Resource" uid="uid://cablv1ftn3kpc" path="res://data/0_sample_0.tres" id="11_ci86w"]
 [ext_resource type="Script" path="res://world/camera.gd" id="11_nmjdv"]
-[ext_resource type="PackedScene" uid="uid://cfta4rowx2s76" path="res://ui/cli.tscn" id="11_obbtr"]
-[ext_resource type="PackedScene" uid="uid://bu1g3ij4mtfhj" path="res://actors/island.tscn" id="11_q8qja"]
+[ext_resource type="PackedScene" uid="uid://4l64m2h117q8" path="res://ui/cli.tscn" id="11_obbtr"]
+[ext_resource type="PackedScene" uid="uid://dxmb813q27jud" path="res://actors/island.tscn" id="11_q8qja"]
 
 [sub_resource type="Resource" id="Resource_7wi82"]
 script = ExtResource("3_dooye")

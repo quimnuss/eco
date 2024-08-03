@@ -23,6 +23,8 @@ func update_density(density : float):
     density_label.set_text("%0.2f" % density)
     if density <= 0:
         label.set("theme_override_colors/font_color",Color.DARK_RED)
+        density_label.set("theme_override_colors/font_color",Color.DARK_RED)
     else:
         label.set("theme_override_colors/font_color",Color.GHOST_WHITE)
+        density_label.set("theme_override_colors/font_color",Color.GHOST_WHITE)
 

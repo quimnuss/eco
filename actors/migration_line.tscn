@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwehb37iwp8k5"]
+[gd_scene load_steps=6 format=3 uid="uid://drvcq6vjw8nlr"]
 
 [ext_resource type="Script" path="res://actors/migration_line.gd" id="1_j1vie"]
 [ext_resource type="Script" path="res://scripts/drawn_path2d.gd" id="2_ncrjm"]

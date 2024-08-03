@@ -18,7 +18,7 @@ func _ready():
         for island_to : Island in islands:
             if island == island_to or island.island_id > island_to.island_id:
                 continue
-            if island.global_position.distance_to(island_to.global_position) < 500:
+            elif island.global_position.distance_to(island_to.global_position) < 500:
                 prints("Establishing migration line from",island.island_id,'-->',island_to.island_id)
                 var migration_line : MigrationLine = preload('res://actors/migration_line.tscn').instantiate()
                 migration_line.from_island = island

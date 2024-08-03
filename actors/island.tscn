@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bu1g3ij4mtfhj"]
+[gd_scene load_steps=10 format=3 uid="uid://dxmb813q27jud"]
 
 [ext_resource type="Script" path="res://actors/island.gd" id="1_0d0km"]
 [ext_resource type="Script" path="res://actors/glv.gd" id="2_pg5or"]
@@ -17,7 +17,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 metadata/_snap_enabled = true
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wx60"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rcurx"]
 size = Vector2(200, 200)
 
 [node name="Island" type="Node2D"]
@@ -61,7 +61,7 @@ polygon = PackedVector2Array(-122, -114, 146, -113, 147, 118, -122, 116, -122, -
 script = ExtResource("5_hc6sn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_8wx60")
+shape = SubResource("RectangleShape2D_rcurx")
 
 [connection signal="densities_update" from="GLV" to="." method="_on_glv_densities_update"]
 [connection signal="densities_update" from="GLV" to="Pops" method="_on_glv_densities_update"]

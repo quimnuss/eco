@@ -8,7 +8,7 @@ func set_species_names(species_names : Array[String]):
     for line in species_lines:
         line.queue_free()
     species_lines.clear()
-    
+
     var offset : float = 0
     for species_name in species_names:
         var line : Species = preload("res://actors/species.tscn").instantiate()
