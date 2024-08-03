@@ -59,11 +59,11 @@ func change_emigration(from_island : Island, to_island : Island, species_name : 
     glv.emigration[species_index] += migration_value - previous_migration
 
 func is_immigrating(from_island : Island, to_island: Island, species_name : String) -> bool:
-    if species_name not in self.glv.species_names:
-        return false
-    # we could remove this:
     var species_index : int = self.glv.species_names.find(species_name)
-    return migration_matrix.get(Vector3i(from_island.island_id, to_island.island_id, species_index), 0) != 0
+    if species_index < 0:
+        return false
+    var migration_value : float = migration_matrix.get(Vector3i(from_island.island_id, to_island.island_id, species_index), 0)
+    return migration_value != 0
 
 
 func change_immigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
@@ -75,6 +75,7 @@ func change_immigration(from_island : Island, to_island : Island, species_name :
     else:
         glv.add_species(species_name)
         species_changed.emit(glv.species_names)
+        species_index = glv.species_names.find(species_name)
         glv.densities[species_index] = migration_value
         apply_migration(species_index, from_island, to_island, migration_value)
         species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)

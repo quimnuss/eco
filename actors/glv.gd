@@ -58,6 +58,8 @@ func _ready():
 
         num_species_changed.emit(species_names)
 
+    add_to_group('glvs')
+
 func from_resource():
     self.num_species = sample.num_species
     self.species_names = sample.species_names.duplicate()
@@ -82,9 +84,12 @@ func from_names(start_species_names : Array[String]):
                 var mutual : float = global_glv_sample.mutuality[species_index][other_species_index]
                 self.mutuality[-1].push_back(mutual)
 
+func freeze():
+    glv_timer.set_paused(not glv_timer.paused)
+
 func ecotick():
     for si in range(num_species):
-        growth_delta[si] = densities[si] * (growth[si] + immigration[si] - emigration[si])
+        growth_delta[si] = densities[si] * growth[si] + immigration[si] - emigration[si]
         for sj in range(num_species):
             var mutual : float = mutuality[si][sj]
             mutual_delta[si][sj] = densities[si] * mutual * densities[sj]

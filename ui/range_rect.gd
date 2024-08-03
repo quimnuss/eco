@@ -49,6 +49,8 @@ func set_color(new_value : float):
         #ctooltip.set_text("%0.4f" % (self.value*1000))
         #ctooltip.set_tooltip_text("%0.4f" % (self.value*1000))
 
+func get_value():
+    return self.value
 #var ctooltip : Label
 #
 #func _make_custom_tooltip(for_text):

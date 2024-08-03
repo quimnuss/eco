@@ -19,6 +19,7 @@ curve = SubResource("Curve2D_7ht1x")
 script = ExtResource("2_ncrjm")
 
 [node name="Control" type="VBoxContainer" parent="Path2D"]
+z_index = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

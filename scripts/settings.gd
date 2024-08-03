@@ -1,3 +1,3 @@
 extends Node
 
-var use_gaia : bool = true
+var use_gaia : bool = false

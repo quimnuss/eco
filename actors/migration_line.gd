@@ -36,7 +36,7 @@ func _ready():
         path_2d.ends_down = false
     var migration_points : PackedVector2Array = path_2d.curve.get_baked_points()
     interaction_point = Vector2(migration_points[floor(len(migration_points)/2.0)]) + Vector2(0,-30)
-    migration_popup.global_position = interaction_point + self.global_position - Vector2(0,panel.get_custom_minimum_size().y + 20)
+    migration_popup.global_position = interaction_point + self.global_position - Vector2(0,panel.get_custom_minimum_size().y)
 
     for i in range(len(species_names)):
         var species_name : String = species_names[i]
@@ -68,6 +68,13 @@ func reset_migration_ui(from_island : Island, to_island : Island, species_name :
         var species_migration = species_migrations[2*i + 1] as RangeRect
         species_migration.set_color(0)
 
+func get_migration_value(from_island : Island, to_island : Island, species_name : String) -> float:
+    var i = species_names.find(species_name)
+    if i != -1:
+        var species_migrations = grid_container.get_children()
+        var species_migration = species_migrations[2*i + 1] as RangeRect
+        return species_migration.get_value()
+    return 0
 
 func _on_change_migration_rate(index_i : int, new_value : float):
     var species_name : String = species_names[index_i]
@@ -79,7 +86,8 @@ func _on_selected_migration_line():
 func _on_glv_densities_update(species_densities : Dictionary):
     for species_name in species_densities:
         if species_densities[species_name] < EMIGRATION_THRESHOLD:
-            change_migration.emit(from_island, to_island, species_name, 0)
-            migration_cancelled.emit(from_island, to_island, species_name)
-            reset_migration_ui(from_island, to_island, species_name)
+            if get_migration_value(from_island, to_island, species_name) > 0:
+                change_migration.emit(from_island, to_island, species_name, 0)
+                migration_cancelled.emit(from_island, to_island, species_name)
+                reset_migration_ui(from_island, to_island, species_name)
 

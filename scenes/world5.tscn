@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://xqcgkt6smmj7"]
+[gd_scene load_steps=13 format=3 uid="uid://xqcgkt6smmj7"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_gqbxc"]
 [ext_resource type="TileSet" uid="uid://bxwxldjtw4p8n" path="res://world/island_tileset.tres" id="2_n414t"]
@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://5pobprjlyqrf" path="res://data/3_sample_2_negative_growth.tres" id="7_tfeyb"]
 [ext_resource type="Resource" uid="uid://c6newxqmiw6mj" path="res://data/10_sample_0.tres" id="8_daeo5"]
 [ext_resource type="PackedScene" uid="uid://4l64m2h117q8" path="res://ui/cli.tscn" id="9_ceu10"]
+[ext_resource type="StyleBox" uid="uid://b4j6hug60aq8" path="res://ui/panel_stylebox.tres" id="10_pt325"]
 
 [sub_resource type="Resource" id="Resource_7wi82"]
 script = ExtResource("4_svq57")
@@ -49,9 +50,9 @@ example_glv_sample = SubResource("Resource_7wi82")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(563, 330)
 limit_left = 0
-limit_top = -100
-limit_right = 1200
-limit_bottom = 700
+limit_top = -150
+limit_right = 1300
+limit_bottom = 1000
 limit_smoothed = true
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
@@ -70,7 +71,7 @@ shape = SubResource("RectangleShape2D_t6xm6")
 [node name="Island0" parent="." instance=ExtResource("6_yp2fp")]
 position = Vector2(273, 254)
 island_id = 0
-start_species_names = Array[String](["bear", "grass", "rabbit", "fox", "wolf", "bird", "fish", "tree"])
+start_species_names = Array[String](["tree", "carrot", "grass", "rabbit", "bird", "fish", "fox", "wolf", "bear", "algae"])
 global_glv_sample = ExtResource("8_daeo5")
 
 [node name="Island1" parent="." instance=ExtResource("6_yp2fp")]
@@ -103,5 +104,25 @@ global_glv_sample = ExtResource("8_daeo5")
 
 [node name="Cli" parent="." instance=ExtResource("9_ceu10")]
 
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="UI"]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_styles/panel = ExtResource("10_pt325")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="Button" type="Button" parent="UI/Panel/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+toggle_mode = true
+text = "II"
+
 [connection signal="mouse_entered" from="Camera2D/CanvasLayer/Area2D" to="Camera2D" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Camera2D/CanvasLayer/Area2D" to="Camera2D" method="_on_area_2d_mouse_exited"]
+[connection signal="toggled" from="UI/Panel/HBoxContainer/Button" to="." method="_on_button_toggled"]

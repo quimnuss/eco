@@ -33,3 +33,5 @@ func _ready():
                 migration_lines.add_child(migration_line)
 
 
+func _on_button_toggled(toggled_on):
+    get_tree().call_group('glvs', 'freeze')
