@@ -16,6 +16,8 @@ var emigration : Array[float]
 
 var sample : GLVSample
 
+@export var global_glv_sample : GLVSample
+
 @onready var glv_timer : Timer = $GLVTimer
 
 var growth_delta : Array[float]
@@ -43,10 +45,10 @@ func _ready():
         mutual_delta.resize(num_species)
         immigration.resize(num_species)
         emigration.resize(num_species)
-        
+
         for mutual in mutual_delta:
             mutual.resize(num_species)
-    
+
         num_species_changed.emit(species_names)
 
 func from_resource():
@@ -62,23 +64,23 @@ func ecotick():
         for sj in range(num_species):
             var mutual : float = mutuality[si][sj]
             mutual_delta[si][sj] = densities[si] * mutual * densities[sj]
-    
+
     # add everything up
     var delta_densities : Array[float]
     delta_densities.resize(num_species)
     delta_densities.fill(0)
     for si in range(num_species):
-        delta_densities[si] += growth_delta[si] 
+        delta_densities[si] += growth_delta[si]
         for sj in range(num_species):
             delta_densities[si] += mutual_delta[si][sj]
         delta_densities[si] = clamp(delta_densities[si], -MAX_DELTA, MAX_DELTA)
-            
+
     for si in range(num_species):
         densities[si] += delta_densities[si]
         if densities[si] < EPSILON:
             densities[si] = 0
         densities[si] = clamp(densities[si],0,10000)
-    
+
     # gaia karma
     if Settings.use_gaia:
         gaia_adaptation()
@@ -92,7 +94,7 @@ func print_glv():
     print('\n%d' % [tick_count])
     for si in range(num_species):
         print("%s %f" % [species_names[si], densities[si]])
-            
+
 func modify_species(index : int, new_mutuality : Array, new_growth : float):
     for i in range(num_species):
         mutuality[index][i] = new_mutuality[i]
@@ -104,9 +106,10 @@ func change_mutuality(index_i : int, index_j : int, new_mutuality : float):
 func change_growth(index_i : int, new_growth : float):
     growth[index_i] = new_growth
 
-func add_species(species_name : String, new_mutuality : Array, new_growth : float):
+func add_new_species(species_name : String, new_mutuality : Array, new_growth : float):
     for species_index in range(num_species):
         mutuality[species_index].push_back(0)
+
     mutuality.push_back(new_mutuality)
     growth.push_back(new_growth)
     densities.push_back(1)
@@ -115,13 +118,37 @@ func add_species(species_name : String, new_mutuality : Array, new_growth : floa
     growth_delta.resize(num_species)
     immigration.resize(num_species)
     emigration.resize(num_species)
-    
+
     mutual_delta.resize(num_species)
     for mutual in mutual_delta:
         mutual.resize(num_species)
 
     num_species_changed.emit(species_names)
-    
+
+func add_species(species_name : String):
+    var global_species_index : int = global_glv_sample.species_names.find(species_name)
+    for species_index in range(num_species):
+        var global_species_index_other : int = global_glv_sample.species_names.find(species_names[species_index])
+        mutuality[species_index].push_back(global_glv_sample.mutuality[global_species_index_other][global_species_index])
+    mutuality.push_back(Array())
+    for other_species_name in species_names:
+        var other_idx : int = global_glv_sample.species_names.find(other_species_name)
+        mutuality[-1].push_back(global_glv_sample.mutuality[global_species_index][other_idx])
+    mutuality[-1].push_back(global_glv_sample.mutuality[global_species_index][global_species_index])
+    growth.push_back(global_glv_sample.growth[global_species_index])
+    densities.push_back(1)
+    species_names.push_back(species_name)
+    self.num_species += 1
+    growth_delta.resize(num_species)
+    immigration.resize(num_species)
+    emigration.resize(num_species)
+
+    mutual_delta.resize(num_species)
+    for mutual in mutual_delta:
+        mutual.resize(num_species)
+
+    num_species_changed.emit(species_names)
+
 # Gaia
 const DEFENSE_THRESHOLD : float = 0.5
 const RELAX_THRESHOLD : float = 5

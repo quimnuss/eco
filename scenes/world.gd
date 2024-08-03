@@ -14,6 +14,7 @@ func _ready():
     var islands : Array = get_tree().get_nodes_in_group('islands')
     for island : Island in islands:
         cli.change_species.connect(island._on_change_species)
+        cli.add_species.connect(island._on_add_species)
         for island_to : Island in islands:
             if island == island_to or island.island_id > island_to.island_id:
                 continue
@@ -28,6 +29,7 @@ func _ready():
                 migration_line.change_migration.connect(island.change_emigration)
                 island.species_changed.connect(migration_line.add_species)
                 island_to.species_changed.connect(migration_line.add_species)
+                island.densities_update.connect(migration_line._on_glv_densities_update)
                 migration_lines.add_child(migration_line)
 
 

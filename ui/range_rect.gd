@@ -22,7 +22,7 @@ func _ready():
 func gradient_color(ratio : float) -> Color:
     var color_palette : Array = [
         "#bd0000", "#d7191c", "#e76818", "#f29e2e", "#f9d057", "#ffff8c",
-        "#90eb9d", "#00ccbc", "#00a6ca", "#2c7bb6", "#2c35b6"               
+        "#90eb9d", "#00ccbc", "#00a6ca", "#2c7bb6", "#2c35b6"
     ]
     var color_a : Color = color_palette[floor(ratio*10)]
     var color_b : Color = color_palette[ceil(ratio*10)]
@@ -48,7 +48,7 @@ func set_color(new_value : float):
     #if is_instance_valid(ctooltip):
         #ctooltip.set_text("%0.4f" % (self.value*1000))
         #ctooltip.set_tooltip_text("%0.4f" % (self.value*1000))
-    
+
 #var ctooltip : Label
 #
 #func _make_custom_tooltip(for_text):

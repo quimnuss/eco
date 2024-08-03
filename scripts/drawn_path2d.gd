@@ -16,4 +16,4 @@ func _draw():
     var head : Vector2 = -head_direction * head_length
     draw_line(value, value + head.rotated(head_angle),  line_color, line_width)
     draw_line(value, value + head.rotated(-head_angle),  line_color, line_width)
-    
+

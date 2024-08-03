@@ -50,15 +50,15 @@ func refresh_grid():
         one_square.index_j = -1
         one_square.change_growth.connect(_on_change_growth)
         growths.add_child(one_square)
-    
+
     for i in range(num_species):
         var species_name : Label = create_species_label(i)
         grid_container.add_child(species_name)
-    
+
     for i in range(num_species):
         var species_name : Label = create_species_label(i)
         grid_container.add_child(species_name)
-        
+
         for j in range(num_species):
             var one_square = preload('res://ui/range_rect.tscn').instantiate()
             one_square.index_i = i
@@ -68,7 +68,7 @@ func refresh_grid():
 
 func _on_change_mutuality(index_i : int, index_j : int, new_value : float):
     change_mutuality.emit(index_i, index_j, new_value)
-    
+
     # update maximum in grid
     var new_max_mutuality : float = 0
     for child in grid_container.get_children():
@@ -86,7 +86,7 @@ func create_species_label(index : int) -> Label:
     var species_name : Label = Label.new()
     species_name.clip_text = true
     species_name.set_custom_minimum_size(Vector2(32,32))
-    species_name.set_text_overrun_behavior(TextServer.OVERRUN_TRIM_CHAR) 
+    species_name.set_text_overrun_behavior(TextServer.OVERRUN_TRIM_CHAR)
     var s_name : String = species_names[index] if species_names else 'foo'
     species_name.set_text(s_name)
     return species_name

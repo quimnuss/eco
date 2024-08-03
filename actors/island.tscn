@@ -63,6 +63,7 @@ script = ExtResource("5_hc6sn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_8wx60")
 
+[connection signal="densities_update" from="GLV" to="." method="_on_glv_densities_update"]
 [connection signal="densities_update" from="GLV" to="Pops" method="_on_glv_densities_update"]
 [connection signal="num_species_changed" from="GLV" to="Pops" method="_on_glv_num_species_changed"]
 [connection signal="species_changed" from="GLV" to="SpeciesGrid" method="_on_glv_species_changed"]
