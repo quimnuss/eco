@@ -6,12 +6,12 @@ Ecosystem simulation based on General Lotka-Volterra equations and specializatio
 
 ## next
 
-
-[ ] Create 100 species
 [ ] Change ui for island population
+[ ] Island specificity
 
 ## later
 
+[ ] Create 100 species
 [ ] Treat adaptation as new species?
 [ ] Sort alphabetically on ui
 

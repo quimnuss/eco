@@ -25,7 +25,6 @@ signal densities_update(species_densities : Dictionary) #Dictionary[String,float
 func _ready():
     if OS.is_debug_build() and self.owner == null:
         self.global_position = get_viewport_rect().size/2
-        glv_sample = preload("res://data/3_sample_0.tres")
 
     # unnecessary since we do get_parent on glv...
     glv.global_glv_sample = global_glv_sample

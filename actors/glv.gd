@@ -40,6 +40,9 @@ func _ready():
     global_glv_sample = get_parent().global_glv_sample
     var start_species_names : Array[String] = get_parent().start_species_names
 
+    if OS.is_debug_build() and self.get_parent().owner == null:
+        sample = preload("res://data/3_sample_0.tres")
+
     glv_timer.timeout.connect(ecotick)
     if sample:
         from_resource()

@@ -32,6 +32,9 @@ func _ready():
                 island.densities_update.connect(migration_line._on_glv_densities_update)
                 migration_lines.add_child(migration_line)
 
+    if OS.is_debug_build():
+        var fps_counter = load("res://ui/fps_counter.tscn").instantiate()
+        get_node('UI').add_child(fps_counter)
 
 func _on_button_toggled(toggled_on):
     get_tree().call_group('glvs', 'freeze')
