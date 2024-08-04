@@ -1,5 +1,5 @@
 extends Node2D
-class_name Species
+class_name SpeciesLine
 
 @onready var line_2d : Line2D = $Line2D
 @onready var label = $Label

@@ -14,6 +14,7 @@ class_name Island
 @onready var glv : GLV = $GLV
 @onready var pops = $Pops
 @onready var species_grid : SpeciesGrid = $SpeciesGrid
+@onready var lifeform_spawner : LifeformSpawner = $LifeformSpawner
 
 var migration_matrix : Dictionary = {} # Vector3i(id_from, id_to, species_index)
 
@@ -50,6 +51,7 @@ func _ready():
 func init_everything():
     pops.set_species_names(glv.species_names)
     species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
+    lifeform_spawner.set_species_names(glv.species_names)
 
 func change_emigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
     var species_index : int = glv.species_names.find(species_name)

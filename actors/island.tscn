@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dxmb813q27jud"]
+[gd_scene load_steps=11 format=3 uid="uid://dxmb813q27jud"]
 
 [ext_resource type="Script" path="res://actors/island.gd" id="1_0d0km"]
 [ext_resource type="Script" path="res://actors/glv.gd" id="2_pg5or"]
@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://actors/pops.gd" id="4_q8gvr"]
 [ext_resource type="Script" path="res://scripts/highlighter.gd" id="5_hc6sn"]
 [ext_resource type="PackedScene" uid="uid://cxdx1cm2a7b4t" path="res://ui/species_grid.tscn" id="6_e82f1"]
-[ext_resource type="Script" path="res://actors/paint.gd" id="7_7cia3"]
+[ext_resource type="Script" path="res://actors/lifeform_spawner.gd" id="7_a8cui"]
 
 [sub_resource type="Gradient" id="Gradient_trq5i"]
 offsets = PackedFloat32Array(0.507042, 0.584507, 0.647887)
@@ -20,8 +20,6 @@ metadata/_snap_enabled = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rcurx"]
 size = Vector2(200, 200)
-
-[sub_resource type="ImageTexture" id="ImageTexture_bc26p"]
 
 [node name="Island" type="Node2D"]
 script = ExtResource("1_0d0km")
@@ -67,15 +65,12 @@ script = ExtResource("5_hc6sn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_rcurx")
 
-[node name="Paint" type="Sprite2D" parent="."]
-position = Vector2(1, 0)
-scale = Vector2(-1, 1)
-texture = SubResource("ImageTexture_bc26p")
-script = ExtResource("7_7cia3")
+[node name="LifeformSpawner" type="Node2D" parent="."]
+script = ExtResource("7_a8cui")
 
 [connection signal="densities_update" from="GLV" to="." method="_on_glv_densities_update"]
 [connection signal="densities_update" from="GLV" to="Pops" method="_on_glv_densities_update"]
-[connection signal="densities_update" from="GLV" to="Paint" method="_on_glv_densities_update"]
+[connection signal="densities_update" from="GLV" to="LifeformSpawner" method="_on_glv_densities_update"]
 [connection signal="num_species_changed" from="GLV" to="Pops" method="_on_glv_num_species_changed"]
 [connection signal="species_changed" from="GLV" to="SpeciesGrid" method="_on_glv_species_changed"]
 [connection signal="change_growth" from="SpeciesGrid" to="GLV" method="change_growth"]
