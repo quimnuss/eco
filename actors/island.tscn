@@ -68,7 +68,6 @@ script = ExtResource("5_hc6sn")
 shape = SubResource("RectangleShape2D_rcurx")
 
 [node name="Paint" type="Sprite2D" parent="."]
-process_mode = 4
 position = Vector2(1, 0)
 scale = Vector2(-1, 1)
 texture = SubResource("ImageTexture_bc26p")
