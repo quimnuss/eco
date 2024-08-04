@@ -19,15 +19,10 @@ config/icon="res://icon.svg"
 
 Util="*res://scripts/util.gd"
 Settings="*res://scripts/settings.gd"
-Panku="*res://addons/panku_console/console.tscn"
 
 [display]
 
 window/stretch/mode="canvas_items"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/panku_console/plugin.cfg")
 
 [gui]
 

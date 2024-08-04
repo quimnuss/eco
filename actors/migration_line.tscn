@@ -33,6 +33,7 @@ alignment = 2
 
 [node name="Panel" type="PanelContainer" parent="Path2D/Control"]
 visible = false
+z_index = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_vertical = 3

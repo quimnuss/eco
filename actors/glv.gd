@@ -12,7 +12,6 @@ var growth : Array[float]
 var mutuality : Array[Array]
 
 var immigration : Array[float]
-var emigration : Array[float]
 
 var sample : GLVSample
 
@@ -51,7 +50,6 @@ func _ready():
         growth_delta.resize(num_species)
         mutual_delta.resize(num_species)
         immigration.resize(num_species)
-        emigration.resize(num_species)
 
         for mutual in mutual_delta:
             mutual.resize(num_species)
@@ -89,7 +87,7 @@ func freeze():
 
 func ecotick():
     for si in range(num_species):
-        growth_delta[si] = densities[si] * growth[si] + immigration[si] - emigration[si]
+        growth_delta[si] = densities[si] * growth[si] + immigration[si]
         for sj in range(num_species):
             var mutual : float = mutuality[si][sj]
             mutual_delta[si][sj] = densities[si] * mutual * densities[sj]
@@ -146,7 +144,6 @@ func add_new_species(species_name : String, new_mutuality : Array, new_growth : 
     self.num_species += 1
     growth_delta.resize(num_species)
     immigration.resize(num_species)
-    emigration.resize(num_species)
 
     mutual_delta.resize(num_species)
     for mutual in mutual_delta:
@@ -170,7 +167,6 @@ func add_species(species_name : String):
     self.num_species += 1
     growth_delta.resize(num_species)
     immigration.resize(num_species)
-    emigration.resize(num_species)
 
     mutual_delta.resize(num_species)
     for mutual in mutual_delta:

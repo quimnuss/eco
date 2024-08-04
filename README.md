@@ -6,7 +6,6 @@ Ecosystem simulation based on General Lotka-Volterra equations and specializatio
 
 ## next
 
-[ ] [BUG] negative immigration does not emigrate
 
 [ ] Create 100 species
 [ ] Change ui for island population
@@ -18,6 +17,7 @@ Ecosystem simulation based on General Lotka-Volterra equations and specializatio
 
 ## Done
 
+[x] [BUG] negative immigration does not emigrate
 [x] Create 10 species
 [x] Handle extinction in migration
 [x] have a "hidden" mutuality copied from the island source on migration or solve the global mutuality problem

@@ -54,9 +54,9 @@ func init_everything():
 
 func change_emigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
     var species_index : int = glv.species_names.find(species_name)
-    var previous_migration : float = migration_matrix.get(Vector3i(from_island.island_id, to_island.island_id, species_index), 0)
-    migration_matrix[Vector3i(from_island.island_id, to_island.island_id, species_index)] = migration_value
-    glv.emigration[species_index] += migration_value - previous_migration
+    if species_index == -1:
+        push_error('%s emigrating %d <- %d does not exist' % [species_name, from_island, to_island])
+    apply_migration(species_index, from_island, to_island, -migration_value)
 
 func is_immigrating(from_island : Island, to_island: Island, species_name : String) -> bool:
     var species_index : int = self.glv.species_names.find(species_name)
@@ -64,7 +64,6 @@ func is_immigrating(from_island : Island, to_island: Island, species_name : Stri
         return false
     var migration_value : float = migration_matrix.get(Vector3i(from_island.island_id, to_island.island_id, species_index), 0)
     return migration_value != 0
-
 
 func change_immigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
     if migration_value == 0 and not is_immigrating(from_island, to_island, species_name):
@@ -83,7 +82,7 @@ func change_immigration(from_island : Island, to_island : Island, species_name :
 func apply_migration(species_index : int, from_island : Island, to_island : Island, migration_value : float):
     var previous_migration : float = migration_matrix.get(Vector3i(from_island.island_id,to_island.island_id, species_index), 0)
     migration_matrix[Vector3i(from_island.island_id, to_island.island_id, species_index)] = migration_value
-    glv.immigration[species_index] = glv.immigration[species_index] + migration_value - previous_migration
+    glv.immigration[species_index] += migration_value - previous_migration
 
 func _on_change_species(island : int, species_name : String, growth : float, mutuality : Array):
     if island_id == island:
