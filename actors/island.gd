@@ -54,11 +54,7 @@ func init_everything():
     lifeform_spawner.set_species_names(glv.species_names)
 
 func change_emigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
-    if migration_value < 0:
-        # negative emigration means immigration, createspecies if doesnt exist
-        apply_immigration(from_island, to_island, species_name, -migration_value)
-    else:
-        apply_emigration(from_island, to_island, species_name, migration_value)
+    change_migration(to_island, from_island, species_name, -migration_value)
 
 func is_migrating(from_island : Island, to_island: Island, species_name : String) -> bool:
     var species_index : int = self.glv.species_names.find(species_name)
@@ -68,33 +64,26 @@ func is_migrating(from_island : Island, to_island: Island, species_name : String
     return migration_value != 0
 
 func change_immigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
-    if migration_value < 0:
-        # negative immigration means emigration, check if we can
-        apply_emigration(from_island, to_island, species_name, -migration_value)
-    else:
-        apply_immigration(from_island, to_island, species_name, migration_value)
+    change_migration(from_island, to_island, species_name, migration_value)
 
-func apply_emigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
-    var species_index : int = glv.species_names.find(species_name)
-    if species_index == -1:
-        push_error('%s emigrating %d <- %d does not exist' % [species_name, from_island.island_id, to_island.island_id])
-        return
-    apply_migration(species_index, from_island, to_island, -migration_value)
-
-func apply_immigration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
+func change_migration(from_island : Island, to_island : Island, species_name : String, migration_value : float):
     if migration_value == 0 and not is_migrating(from_island, to_island, species_name):
         # ignore updates if we're already zero (it's the startup)
         return
-    var species_index : int = glv.species_names.find(species_name)
+    var species_index : int = glv.species_names.find(species_name) # check species exists
     if species_index != -1:
         apply_migration(species_index, from_island, to_island, migration_value)
     else:
-        glv.add_species(species_name)
-        species_changed.emit(glv.species_names)
-        species_index = glv.species_names.find(species_name)
-        glv.densities[species_index] = migration_value
-        apply_migration(species_index, from_island, to_island, migration_value)
-        species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
+        if migration_value >= 0 and to_island == self:
+            glv.add_species(species_name)
+            species_changed.emit(glv.species_names)
+            species_index = glv.species_names.find(species_name)
+            glv.densities[species_index] = migration_value
+            apply_migration(species_index, from_island, to_island, migration_value)
+            species_grid._on_glv_species_changed(glv.species_names, glv.mutuality, glv.growth)
+        else:
+            push_error('%s emigrating %d <- %d does not exist' % [species_name, from_island.island_id, to_island.island_id])
+            return
 
 func apply_migration(species_index : int, from_island : Island, to_island : Island, migration_value : float):
     var previous_migration : float = migration_matrix.get(Vector3i(from_island.island_id,to_island.island_id, species_index), 0)

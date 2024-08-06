@@ -24,8 +24,6 @@ func _ready():
     self.global_position = (from_island.global_position + to_island.global_position)/2.0
     path_2d.curve = Curve2D.new()
     #path_2d.curve.clear_points()
-    var ease_in : Vector2 = Vector2.ZERO
-    var ease_out : Vector2 = Vector2.ZERO
     if from_island.global_position.x < to_island.global_position.x:
         path_2d.curve.add_point(from_island.global_position - self.global_position, Vector2.ZERO, 100*Vector2.UP)
         path_2d.curve.add_point(to_island.global_position - self.global_position, 100*Vector2.UP, Vector2.ZERO)
@@ -78,12 +76,12 @@ func get_migration_value(species_name : String) -> float:
 
 func _on_change_migration_rate(index_i : int, new_value : float):
     var species_name : String = species_names[index_i]
-    if not can_migrate(index_i, species_name, new_value):
+    if not can_migrate(species_name, new_value):
         reset_migration_ui(species_name)
     else:
         change_migration.emit(from_island, to_island, species_name, new_value)
 
-func can_migrate(species_index : int, species_name : String, new_value : float) -> bool:
+func can_migrate(species_name : String, new_value : float) -> bool:
     if new_value > 0: # emigrating
         var from_species_index : int = from_island.glv.species_names.find(species_name)
         if from_species_index == -1:

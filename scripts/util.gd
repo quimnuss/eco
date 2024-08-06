@@ -7,10 +7,10 @@ func imax(array : Array) -> Array:
         if array[i] > max_value:
             max_value = array[i]
             index = i
-    var imax : Array
-    imax.push_back(index)
-    imax.push_back(max_value)
-    return imax
+    var imax_array : Array = []
+    imax_array.push_back(index)
+    imax_array.push_back(max_value)
+    return imax_array
 
 func sum(array : Array[float]) -> float:
     var total : float = 0
@@ -19,7 +19,7 @@ func sum(array : Array[float]) -> float:
     return total
 
 func cumsum(array : Array[float]) -> Array[float]:
-    var cumsum_array : Array[float]
+    var cumsum_array : Array[float] = []
     var total : float = 0
     for el in array:
         total += el
@@ -29,7 +29,7 @@ func cumsum(array : Array[float]) -> Array[float]:
 func zip(keys : Array, values : Array) -> Dictionary:
     if len(keys) != len(values):
         push_error('zip: Arrays must be of same size')
-    var zipped : Dictionary
+    var zipped : Dictionary = {}
     for i in range(len(keys)):
         zipped[keys[i]] = values[i]
     return zipped

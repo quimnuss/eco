@@ -21,6 +21,10 @@ config/icon="res://earth.svg"
 Util="*res://scripts/util.gd"
 Settings="*res://scripts/settings.gd"
 
+[debug]
+
+gdscript/warnings/integer_division=0
+
 [display]
 
 window/stretch/mode="canvas_items"

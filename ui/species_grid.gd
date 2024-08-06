@@ -91,7 +91,7 @@ func create_species_label(index : int) -> Label:
     species_name.set_text(s_name)
     return species_name
 
-func _process(delta):
+func _process(_delta):
     if is_following_mouse:
         self.global_position = get_global_mouse_position()
 

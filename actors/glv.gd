@@ -96,7 +96,7 @@ func ecotick():
             mutual_delta[si][sj] = densities[si] * mutual * densities[sj]
 
     # add everything up
-    var delta_densities : Array[float]
+    var delta_densities : Array[float] = []
     delta_densities.resize(num_species)
     delta_densities.fill(0)
     for si in range(num_species):
