@@ -4,23 +4,31 @@ Ecosystem simulation based on General Lotka-Volterra equations and specializatio
 
 # Plan
 
+## now
+
+- [ ] Add menu to add a species
+
 ## next
 
-[ ] Change ui for island population
-[ ] Island specificity
+- [ ] Island specificity
+
+Probably means to create the "Species" concept to add Species type.
+Alternativelly a mutuality+growth matrix "overlay" might also work.
 
 ## later
 
-[ ] Create 100 species
-[ ] Treat adaptation as new species?
-[ ] Sort alphabetically on ui
+- [ ] Create 100 species
+- [ ] Treat adaptation as new species?
+- [ ] Sort alphabetically on ui
+- [ ] Save mutuality/growth
 
 ## Done
 
-[x] [BUG] negative immigration does not emigrate
-[x] Create 10 species
-[x] Handle extinction in migration
-[x] have a "hidden" mutuality copied from the island source on migration or solve the global mutuality problem
+- [~] Change ui for island population
+- [x] [BUG] negative immigration does not emigrate
+- [x] Create 10 species
+- [x] Handle extinction in migration
+- [x] have a "hidden" mutuality copied from the island source on migration or solve the global mutuality problem
 
 --> done with a global complete GLV sample on each island
 
