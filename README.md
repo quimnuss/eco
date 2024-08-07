@@ -2,6 +2,10 @@
 
 Ecosystem simulation based on General Lotka-Volterra equations and specialization/generalization
 
+# Description
+
+The player can mold the environment and properties of the species to try to find robust equilibriums and keep increasing the diversity of each world you visit.
+
 # Plan
 
 ## now
@@ -21,6 +25,7 @@ Alternativelly a mutuality+growth matrix "overlay" might also work.
 - [ ] Treat adaptation as new species?
 - [ ] Sort alphabetically on ui
 - [ ] Save mutuality/growth
+- [ ] NPC ecosystem
 
 ## Done
 
