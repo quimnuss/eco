@@ -37,7 +37,11 @@ script = ExtResource("2_pg5or")
 wait_time = 0.1
 autostart = true
 
+[node name="LifeformSpawner" type="Node2D" parent="."]
+script = ExtResource("7_a8cui")
+
 [node name="Pops" type="Node2D" parent="."]
+visible = false
 position = Vector2(-80, -16)
 script = ExtResource("4_q8gvr")
 
@@ -47,10 +51,10 @@ z_index = 2
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = 85.0
-offset_right = -48.0
-offset_bottom = 85.0
+offset_left = 114.0
+offset_top = -91.0
+offset_right = 114.0
+offset_bottom = -91.0
 grow_vertical = 0
 
 [node name="Highlight" type="Polygon2D" parent="."]
@@ -65,12 +69,9 @@ script = ExtResource("5_hc6sn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_rcurx")
 
-[node name="LifeformSpawner" type="Node2D" parent="."]
-script = ExtResource("7_a8cui")
-
 [connection signal="densities_update" from="GLV" to="." method="_on_glv_densities_update"]
-[connection signal="densities_update" from="GLV" to="Pops" method="_on_glv_densities_update"]
 [connection signal="densities_update" from="GLV" to="LifeformSpawner" method="_on_glv_densities_update"]
+[connection signal="densities_update" from="GLV" to="Pops" method="_on_glv_densities_update"]
 [connection signal="num_species_changed" from="GLV" to="Pops" method="_on_glv_num_species_changed"]
 [connection signal="species_changed" from="GLV" to="SpeciesGrid" method="_on_glv_species_changed"]
 [connection signal="change_growth" from="SpeciesGrid" to="GLV" method="change_growth"]

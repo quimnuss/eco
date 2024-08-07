@@ -66,6 +66,9 @@ func refresh_grid():
             one_square.change_mutuality.connect(_on_change_mutuality)
             grid_container.add_child(one_square)
 
+
+
+
 func _on_change_mutuality(index_i : int, index_j : int, new_value : float):
     change_mutuality.emit(index_i, index_j, new_value)
 
@@ -91,9 +94,10 @@ func create_species_label(index : int) -> Label:
     species_name.set_text(s_name)
     return species_name
 
+
 func _process(_delta):
     if is_following_mouse:
-        self.global_position = get_global_mouse_position()
+        self.global_position = get_global_mouse_position() - mouse_clicked_at
 
 func _on_glv_species_changed(new_species_names : Array, mutuality : Array, growth : Array):
     update_mutuality(new_species_names, mutuality)
@@ -128,7 +132,8 @@ func _on_button_pressed():
     self.visible = false
 
 var is_following_mouse : bool = false
-
+var mouse_clicked_at : Vector2
 func _on_title_gui_input(event):
     if event is InputEventMouseButton:
+        mouse_clicked_at = get_local_mouse_position()
         is_following_mouse = event.is_pressed()

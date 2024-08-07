@@ -13,3 +13,8 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# build
+build/*
+!build/eco_web/.gitkeep
+!build/eco_linux/.gitkeep

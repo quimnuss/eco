@@ -1,8 +1,7 @@
 extends Node2D
 class_name LifeformSpawner
 
-var width : int = 200
-var height : int = 200
+var size : Vector2 = Vector2(200,200)
 
 var species_names : Array[String]
 
@@ -13,7 +12,7 @@ func set_species_names(new_species_names : Array[String]):
     self.species_names = new_species_names
 
 func spawn_lifeform(species_enum : Species.SpeciesEnum):
-    var spawn_point := Vector2(randf_range(-width/2, width/2), randf_range(-height/2, height/2))
+    var spawn_point := Vector2(randf_range(-size.x/2, size.x/2), randf_range(-size.y/2, size.y/2))
     var lifeform : Lifeform = preload('res://actors/lifeform.tscn').instantiate()
     lifeform.global_position = spawn_point
     lifeform.set_species(species_enum)

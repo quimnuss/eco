@@ -18,6 +18,7 @@ func set_species_names(species_names : Array[String]):
         line.start_text = species_name
         add_child(line)
 
+
 func update_densities(densities : Array[float]):
     for i in range(len(densities)):
         if i >= len(species_lines):

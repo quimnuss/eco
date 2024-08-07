@@ -36,5 +36,11 @@ func _ready():
         var fps_counter = load("res://ui/fps_counter.tscn").instantiate()
         get_node('UI').add_child(fps_counter)
 
+
+
 func _on_button_toggled(_toggled_on):
     get_tree().call_group('glvs', 'freeze')
+
+
+func _on_use_gaia_toggled(toggled_on : bool):
+    self.use_gaia = toggled_on

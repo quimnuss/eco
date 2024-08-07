@@ -117,6 +117,10 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 2
 
+[node name="UseGaia" type="CheckButton" parent="UI/Panel/HBoxContainer"]
+layout_mode = 2
+text = "Adaptation"
+
 [node name="Button" type="Button" parent="UI/Panel/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -125,4 +129,5 @@ text = "II"
 
 [connection signal="mouse_entered" from="Camera2D/CanvasLayer/Area2D" to="Camera2D" method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Camera2D/CanvasLayer/Area2D" to="Camera2D" method="_on_area_2d_mouse_exited"]
+[connection signal="toggled" from="UI/Panel/HBoxContainer/UseGaia" to="." method="_on_use_gaia_toggled"]
 [connection signal="toggled" from="UI/Panel/HBoxContainer/Button" to="." method="_on_button_toggled"]

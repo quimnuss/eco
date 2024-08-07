@@ -47,6 +47,7 @@ func _ready():
     var island_rect : Rect2i = tile_map.get_used_rect()
     collision_shape_2d.shape = collision_shape_2d.shape.duplicate()
     collision_shape_2d.shape.size = island_rect.size*16
+    lifeform_spawner.size = island_rect.size*16
 
 func init_everything():
     pops.set_species_names(glv.species_names)
@@ -108,7 +109,15 @@ func _on_add_species(island : int, species_name : String):
         glv.add_species(species_name)
 
 func _on_area_2d_island_clicked():
-    species_grid.visible = not species_grid.visible
+    if not pops.visible:
+        pops.visible = true
+        lifeform_spawner.modulate.a = 0.4
+    elif not species_grid.visible:
+        species_grid.visible = true
+    else:
+        pops.visible = false
+        species_grid.visible = false
+        lifeform_spawner.modulate.a = 1
 
 
 func _on_glv_densities_update(new_densities : Array[float]):
