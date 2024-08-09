@@ -1,9 +1,10 @@
 extends Node2D
 class_name Lifeform
 
-@onready var sprite_2d = $Sprite2D
+@onready var head : Sprite2D = $Head
 
-var species_frame : Dictionary = { # [Species : enum, frame : int]
+
+static var species_frame : Dictionary = { # [Species : enum, frame : int]
     Species.SpeciesEnum.NONE:-1,
     Species.SpeciesEnum.BEAR:51,
     Species.SpeciesEnum.RABBIT:47,
@@ -23,10 +24,10 @@ var species_frame : Dictionary = { # [Species : enum, frame : int]
 var species_enum : Species.SpeciesEnum
 
 func _ready():
-    sprite_2d.frame = species_frame[species_enum]
+    head.frame = species_frame[species_enum]
 
 
 func set_species(species : Species.SpeciesEnum):
     species_enum = species
-    #sprite_2d.frame = species_frame[species]
+    #head.frame = species_frame[species]
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://drvcq6vjw8nlr"]
+[gd_scene load_steps=7 format=3 uid="uid://drvcq6vjw8nlr"]
 
 [ext_resource type="Script" path="res://actors/migration_line.gd" id="1_j1vie"]
 [ext_resource type="Script" path="res://scripts/drawn_path2d.gd" id="2_ncrjm"]
 [ext_resource type="Script" path="res://ui/migration_panel.gd" id="3_0c82o"]
 [ext_resource type="StyleBox" uid="uid://b4j6hug60aq8" path="res://ui/panel_stylebox.tres" id="3_1pg7r"]
+[ext_resource type="Script" path="res://ui/debug_reference_rect.gd" id="3_4hurf"]
 
 [sub_resource type="Curve2D" id="Curve2D_7ht1x"]
 _data = {
@@ -20,11 +21,12 @@ script = ExtResource("2_ncrjm")
 
 [node name="Control" type="VBoxContainer" parent="Path2D"]
 z_index = 1
+z_as_relative = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_right = 100.0
-offset_bottom = 136.0
+offset_right = 44.0
+offset_bottom = 24.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -34,7 +36,6 @@ alignment = 2
 [node name="Panel" type="PanelContainer" parent="Path2D/Control"]
 visible = false
 z_index = 1
-custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("3_1pg7r")
@@ -52,4 +53,15 @@ alignment = 1
 icon_alignment = 1
 expand_icon = true
 
+[node name="ReferenceRect" type="ReferenceRect" parent="Path2D" node_paths=PackedStringArray("target")]
+offset_top = 92.0
+offset_right = 100.0
+offset_bottom = 92.0
+mouse_filter = 2
+border_width = 7.5
+editor_only = false
+script = ExtResource("3_4hurf")
+target = NodePath("../Control")
+
 [connection signal="toggled" from="Path2D/Control/MigrationButton" to="Path2D/Control/Panel" method="_on_check_button_toggled"]
+[connection signal="toggled" from="Path2D/Control/MigrationButton" to="Path2D/ReferenceRect" method="_on_migration_button_toggled"]

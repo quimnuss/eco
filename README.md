@@ -10,11 +10,14 @@ The player can mold the environment and properties of the species to try to find
 
 ## now
 
+- [ ] fix mouse handling on migrationand other menus -> use an area2d based node or some other ui/ux
 - [ ] Add menu to add a species
 
 ## next
 
 - [ ] Island specificity
+- [ ] Same color per species
+- [ ] name in species density list
 
 Probably means to create the "Species" concept to add Species type.
 Alternativelly a mutuality+growth matrix "overlay" might also work.

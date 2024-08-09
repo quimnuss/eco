@@ -27,11 +27,9 @@ func _ready():
     if from_island.global_position.x < to_island.global_position.x:
         path_2d.curve.add_point(from_island.global_position - self.global_position, Vector2.ZERO, 100*Vector2.UP)
         path_2d.curve.add_point(to_island.global_position - self.global_position, 100*Vector2.UP, Vector2.ZERO)
-        path_2d.ends_down = true
     else:
         path_2d.curve.add_point(from_island.global_position - self.global_position + LINE_OFFSET, Vector2.ZERO, 100*Vector2.DOWN)
         path_2d.curve.add_point(to_island.global_position - self.global_position + LINE_OFFSET, 100*Vector2.DOWN, Vector2.ZERO)
-        path_2d.ends_down = false
     var migration_points : PackedVector2Array = path_2d.curve.get_baked_points()
     interaction_point = Vector2(migration_points[floor(len(migration_points)/2.0)])
     migration_popup.global_position = interaction_point + self.global_position - Vector2(0,panel.get_custom_minimum_size().y) + Vector2(-30, 0)

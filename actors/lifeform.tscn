@@ -6,7 +6,7 @@
 [node name="Lifeform" type="Node2D"]
 script = ExtResource("1_tamnx")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Head" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_p2wny")
 hframes = 16
