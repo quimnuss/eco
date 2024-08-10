@@ -16,12 +16,12 @@ func _ready():
     line_2d.default_color = Color(randf_range(0,1),randf_range(0,1),randf_range(0,1))
     label.set_text(start_text)
     var species_enum : Species.SpeciesEnum = Species.name_enum[start_text]
-    head.frame = Lifeform.species_frame[species_enum]
+    head.frame = Species.species_frame[species_enum]
 
 func set_species_name(species_name : String):
     label.set_text(species_name)
     var species_enum : Species.SpeciesEnum = Species.name_enum[species_name]
-    head.frame = Lifeform.species_frame[species_enum]
+    head.frame = Species.species_frame[species_enum]
 
 func update_density(density : float):
     line_2d.set_point_position(1, unitary_bar_size * density)

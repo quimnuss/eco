@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://boac4hmd53bx0"]
+
+[ext_resource type="Script" path="res://ui/add_species_form.gd" id="1_eoyck"]
+
+[node name="AddSpeciesForm" type="PanelContainer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_vertical = 0
+script = ExtResource("1_eoyck")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "name"
+vertical_alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 32)
+layout_mode = 2
+placeholder_text = "name"

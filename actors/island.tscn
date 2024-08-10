@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dxmb813q27jud"]
+[gd_scene load_steps=13 format=3 uid="uid://dxmb813q27jud"]
 
 [ext_resource type="Script" path="res://actors/island.gd" id="1_0d0km"]
 [ext_resource type="Script" path="res://actors/glv.gd" id="2_pg5or"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scripts/highlighter.gd" id="5_hc6sn"]
 [ext_resource type="PackedScene" uid="uid://cxdx1cm2a7b4t" path="res://ui/species_grid.tscn" id="6_e82f1"]
 [ext_resource type="Script" path="res://actors/lifeform_spawner.gd" id="7_a8cui"]
+[ext_resource type="PackedScene" uid="uid://cesj64wqtgr6c" path="res://ui/button_2d.tscn" id="7_oa0sx"]
+[ext_resource type="PackedScene" uid="uid://de6eq5x0khmdp" path="res://ui/species_scrollbox.tscn" id="8_nonig"]
 
 [sub_resource type="Gradient" id="Gradient_trq5i"]
 offsets = PackedFloat32Array(0.507042, 0.584507, 0.647887)
@@ -58,10 +60,19 @@ offset_bottom = -91.0
 grow_vertical = 0
 
 [node name="Highlight" type="Polygon2D" parent="."]
-visible = false
 texture = SubResource("GradientTexture2D_k4nnm")
 texture_offset = Vector2(32, 32)
 polygon = PackedVector2Array(-122, -114, 146, -113, 147, 118, -122, 116, -122, -63.8913)
+
+[node name="Button2D" parent="Highlight" instance=ExtResource("7_oa0sx")]
+position = Vector2(1, -44)
+button_type = 1
+
+[node name="SpeciesScrollbox" parent="Highlight/Button2D" instance=ExtResource("8_nonig")]
+offset_left = -100.0
+offset_top = -560.0
+offset_right = 100.0
+offset_bottom = -100.0
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("5_hc6sn")
@@ -76,4 +87,5 @@ shape = SubResource("RectangleShape2D_rcurx")
 [connection signal="species_changed" from="GLV" to="SpeciesGrid" method="_on_glv_species_changed"]
 [connection signal="change_growth" from="SpeciesGrid" to="GLV" method="change_growth"]
 [connection signal="change_mutuality" from="SpeciesGrid" to="GLV" method="change_mutuality"]
+[connection signal="toggled" from="Highlight/Button2D" to="Highlight/Button2D/SpeciesScrollbox" method="_on_button_2d_toggled"]
 [connection signal="island_clicked" from="Area2D" to="." method="_on_area_2d_island_clicked"]
