@@ -1,4 +1,4 @@
-extends PanelContainer
+extends Control
 
 func _on_check_button_toggled(toggled_on):
     self.visible = toggled_on

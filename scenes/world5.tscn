@@ -75,13 +75,13 @@ start_species_names = Array[String](["tree", "carrot", "grass", "rabbit", "bird"
 global_glv_sample = ExtResource("8_daeo5")
 
 [node name="Island1" parent="." instance=ExtResource("6_yp2fp")]
-position = Vector2(686, 497)
+position = Vector2(667, 538)
 island_id = 1
 glv_sample = ExtResource("7_tfeyb")
 global_glv_sample = ExtResource("8_daeo5")
 
 [node name="Island2" parent="." instance=ExtResource("6_yp2fp")]
-position = Vector2(406, 491)
+position = Vector2(324, 592)
 island_id = 2
 global_glv_sample = ExtResource("8_daeo5")
 
@@ -92,12 +92,12 @@ start_species_names = Array[String](["bear", "grass", "rabbit"])
 global_glv_sample = ExtResource("8_daeo5")
 
 [node name="Island4" parent="." instance=ExtResource("6_yp2fp")]
-position = Vector2(987, 287)
+position = Vector2(1032, 219)
 island_id = 4
 global_glv_sample = ExtResource("8_daeo5")
 
 [node name="Island5" parent="." instance=ExtResource("6_yp2fp")]
-position = Vector2(1014, 578)
+position = Vector2(1038, 587)
 island_id = 5
 start_species_names = Array[String](["tree"])
 global_glv_sample = ExtResource("8_daeo5")

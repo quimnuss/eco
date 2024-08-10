@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/drawn_path2d.gd" id="2_ncrjm"]
 [ext_resource type="Script" path="res://ui/migration_panel.gd" id="3_0c82o"]
 [ext_resource type="StyleBox" uid="uid://b4j6hug60aq8" path="res://ui/panel_stylebox.tres" id="3_1pg7r"]
-[ext_resource type="Script" path="res://ui/debug_reference_rect.gd" id="3_4hurf"]
+[ext_resource type="PackedScene" uid="uid://cesj64wqtgr6c" path="res://ui/button_2d.tscn" id="6_ucfn7"]
 
 [sub_resource type="Curve2D" id="Curve2D_7ht1x"]
 _data = {
@@ -13,55 +13,44 @@ _data = {
 point_count = 2
 
 [node name="MigrationLine" type="Node2D"]
+z_index = 1
 script = ExtResource("1_j1vie")
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_7ht1x")
 script = ExtResource("2_ncrjm")
 
-[node name="Control" type="VBoxContainer" parent="Path2D"]
+[node name="Marker2D" type="Marker2D" parent="Path2D"]
+
+[node name="Control" type="VBoxContainer" parent="Path2D/Marker2D"]
+visible = false
 z_index = 1
 z_as_relative = false
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.0
 offset_right = 44.0
-offset_bottom = 24.0
-grow_horizontal = 2
+offset_bottom = 12.0
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 theme_override_constants/separation = 20
 alignment = 2
+script = ExtResource("3_0c82o")
 
-[node name="Panel" type="PanelContainer" parent="Path2D/Control"]
-visible = false
+[node name="Panel" type="PanelContainer" parent="Path2D/Marker2D/Control"]
 z_index = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("3_1pg7r")
-script = ExtResource("3_0c82o")
 
-[node name="GridContainer" type="GridContainer" parent="Path2D/Control/Panel"]
+[node name="GridContainer" type="GridContainer" parent="Path2D/Marker2D/Control/Panel"]
 layout_mode = 2
 columns = 2
 
-[node name="MigrationButton" type="CheckButton" parent="Path2D/Control"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-alignment = 1
-icon_alignment = 1
-expand_icon = true
+[node name="Button2D" parent="Path2D/Marker2D" instance=ExtResource("6_ucfn7")]
+position = Vector2(-40, 0)
 
-[node name="ReferenceRect" type="ReferenceRect" parent="Path2D" node_paths=PackedStringArray("target")]
-offset_top = 92.0
-offset_right = 100.0
-offset_bottom = 92.0
-mouse_filter = 2
-border_width = 7.5
-editor_only = false
-script = ExtResource("3_4hurf")
-target = NodePath("../Control")
-
-[connection signal="toggled" from="Path2D/Control/MigrationButton" to="Path2D/Control/Panel" method="_on_check_button_toggled"]
-[connection signal="toggled" from="Path2D/Control/MigrationButton" to="Path2D/ReferenceRect" method="_on_migration_button_toggled"]
+[connection signal="hovered" from="Path2D/Marker2D/Button2D" to="Path2D" method="hover"]
+[connection signal="toggled" from="Path2D/Marker2D/Button2D" to="Path2D/Marker2D/Control" method="_on_check_button_toggled"]

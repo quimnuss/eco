@@ -21,6 +21,7 @@ config/icon="res://earth.svg"
 Util="*res://scripts/util.gd"
 Settings="*res://scripts/settings.gd"
 Globals="*res://scripts/globals.gd"
+Signal_Debugger="*res://addons/SignalVisualizer/Debugger/SignalDebugger.gd"
 
 [debug]
 
@@ -29,6 +30,10 @@ gdscript/warnings/integer_division=0
 [display]
 
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/SignalVisualizer/plugin.cfg")
 
 [gui]
 

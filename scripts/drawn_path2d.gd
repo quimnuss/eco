@@ -4,7 +4,7 @@ const head_angle : float = PI/6
 const head_length : float = 20.0
 
 var start_color : Color = Color.RED
-var end_color : Color = Color.GREEN
+var end_color : Color = Color.FOREST_GREEN
 
 const line_width : float = 2
 var line_color : Color = 0.5*(start_color+end_color)
@@ -18,14 +18,25 @@ var head : Vector2
 
 var is_init : bool = false
 
+const ALPHA_NORMAL : float = 0.1
+const ALPHA_HOVERED : float = 1
+
 func _ready():
-    line_color.a = 0.6
-    start_color.a = 0.6
-    end_color.a = 0.6
+    line_color.a = ALPHA_NORMAL
+    start_color.a = ALPHA_NORMAL
+    end_color.a = ALPHA_NORMAL
+
+func hover(is_hovered : bool):
+    var alpha : float = ALPHA_HOVERED if is_hovered else ALPHA_NORMAL
+    line_color.a = alpha
+    start_color.a = alpha
+    end_color.a = alpha
+    for i in range(len(color_array)):
+        color_array[i].a = alpha
+    self.queue_redraw()
 
 func ease_in_out_quint(x: float) -> float:
     return 16 * x * x * x * x * x if x < 0.5 else 1 - pow(-2 * x + 2, 5) / 2
-
 
 func initialize():
     points = self.curve.get_baked_points()

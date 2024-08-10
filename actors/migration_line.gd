@@ -1,13 +1,13 @@
 extends Node2D
 class_name MigrationLine
 
-@onready var migration_popup = $Path2D/Control
-@onready var grid_container = $Path2D/Control/Panel/GridContainer
+@onready var migration_popup_anchor = $Path2D/Marker2D
+@onready var grid_container = $Path2D/Marker2D/Control/Panel/GridContainer
 
 @export var from_island : Island
 @export var to_island : Island
 @onready var path_2d : Path2D = $Path2D
-@onready var panel : PanelContainer = $Path2D/Control/Panel
+
 
 const LINE_OFFSET : Vector2 = Vector2(0,5)
 const EMIGRATION_THRESHOLD : float = 0.1
@@ -32,7 +32,8 @@ func _ready():
         path_2d.curve.add_point(to_island.global_position - self.global_position + LINE_OFFSET, 100*Vector2.DOWN, Vector2.ZERO)
     var migration_points : PackedVector2Array = path_2d.curve.get_baked_points()
     interaction_point = Vector2(migration_points[floor(len(migration_points)/2.0)])
-    migration_popup.global_position = interaction_point + self.global_position - Vector2(0,panel.get_custom_minimum_size().y) + Vector2(-30, 0)
+    migration_popup_anchor.global_position = interaction_point + self.global_position
+
 
     for i in range(len(species_names)):
         var species_name : String = species_names[i]
@@ -95,7 +96,7 @@ func can_migrate(species_name : String, new_value : float) -> bool:
     return true
 
 func _on_selected_migration_line():
-    migration_popup.visible = true
+    migration_popup_anchor.visible = true
 
 func _on_glv_densities_update(species_densities : Dictionary):
     for species_name in species_densities:
