@@ -107,25 +107,12 @@ func _on_add_species(island : int, species_name : String):
     if island_id == island:
         glv.add_species(species_name)
 
-func _on_area_2d_island_clicked():
-    pass
-    #$Control.visible = not $Control.visible
-    #if not pops.visible:
-        #pops.visible = true
-        #lifeform_spawner.modulate.a = 0.4
-    #elif not species_grid.visible:
-        #species_grid.visible = true
-    #else:
-        #pops.visible = false
-        #species_grid.visible = false
-        #lifeform_spawner.modulate.a = 1
-
-
 func _on_glv_densities_update(new_densities : Array[float]):
     var species_densities = Util.zip(glv.species_names, new_densities)
     densities_update.emit(species_densities)
 
-
-
 func _on_density_button_toggled(toggled_on : bool):
     lifeform_spawner.modulate.a = 0.4 if toggled_on else 1.0
+
+func _on_glv_num_species_changed(species_names):
+    species_changed.emit(species_names)

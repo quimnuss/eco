@@ -73,7 +73,6 @@ func refresh_grid():
             one_square.change_mutuality.connect(_on_change_mutuality)
             grid_container.add_child(one_square)
 
-    prints('move title', previous_num_children, len(grid_container.get_children()))
     $PanelContainer/VBoxContainer.move_child(mutuality_title, -2)
 
 @onready var mutuality_title = $PanelContainer/VBoxContainer/MutualityTitle

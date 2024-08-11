@@ -36,7 +36,9 @@ func _ready():
         var fps_counter = load("res://ui/fps_counter.tscn").instantiate()
         get_node('UI').add_child(fps_counter)
 
-
+func _unhandled_input(event):
+    if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+        get_tree().call_group('island_selectors', 'deselect')
 
 func _on_button_toggled(_toggled_on):
     get_tree().call_group('glvs', 'freeze')

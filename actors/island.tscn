@@ -108,6 +108,7 @@ offset_right = 80.0
 offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("7_r1y20")
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
@@ -177,21 +178,22 @@ shape = SubResource("RectangleShape2D_rcurx")
 [connection signal="densities_update" from="GLV" to="." method="_on_glv_densities_update"]
 [connection signal="densities_update" from="GLV" to="LifeformSpawner" method="_on_glv_densities_update"]
 [connection signal="densities_update" from="GLV" to="Pops" method="_on_glv_densities_update"]
+[connection signal="num_species_changed" from="GLV" to="." method="_on_glv_num_species_changed"]
 [connection signal="num_species_changed" from="GLV" to="Pops" method="_on_glv_num_species_changed"]
 [connection signal="species_changed" from="GLV" to="SpeciesGrid" method="_on_glv_species_changed"]
 [connection signal="closed" from="Pops" to="Control" method="_on_pops_closed"]
 [connection signal="pressed" from="Pops/CloseButton" to="Pops" method="_on_close_button_pressed"]
-[connection signal="toggled" from="Pops/CloseButton" to="Pops" method="_on_close_button_toggled"]
 [connection signal="change_growth" from="SpeciesGrid" to="GLV" method="change_growth"]
 [connection signal="change_mutuality" from="SpeciesGrid" to="GLV" method="change_mutuality"]
 [connection signal="closed" from="SpeciesGrid" to="Control" method="_on_species_grid_closed"]
-[connection signal="gui_input" from="Control" to="Control" method="_on_gui_input"]
+[connection signal="add_species" from="SpeciesScrollbox" to="GLV" method="add_species_enum"]
+[connection signal="pressed" from="SpeciesScrollbox" to="Control" method="_on_species_scrollbox_pressed"]
 [connection signal="mouse_entered" from="Control" to="Control" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Control" to="Control" method="_on_mouse_exited"]
 [connection signal="toggled" from="Control/Radial/DensityButton" to="." method="_on_density_button_toggled"]
 [connection signal="toggled" from="Control/Radial/DensityButton" to="Control" method="_on_texture_button_toggled"]
 [connection signal="toggled" from="Control/Radial/MutualityButton" to="Control" method="_on_texture_button_2_toggled"]
 [connection signal="toggled" from="Control/Radial/AddSpeciesButton" to="Control" method="_on_texture_button_3_toggled"]
-[connection signal="island_clicked" from="Area2D" to="." method="_on_area_2d_island_clicked"]
+[connection signal="island_clicked" from="Area2D" to="Control" method="select_island"]
 [connection signal="mouse_entered" from="Area2D" to="Control" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="Control" method="_on_mouse_exited"]

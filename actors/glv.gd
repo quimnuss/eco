@@ -153,6 +153,7 @@ func add_new_species(species_name : String, new_mutuality : Array, new_growth : 
         mutual.resize(num_species)
 
     num_species_changed.emit(species_names)
+    species_changed.emit(species_name, new_mutuality, new_growth)
 
 func add_species(species_name : String):
     var global_species_index : int = global_glv_sample.species_names.find(species_name)
@@ -176,6 +177,15 @@ func add_species(species_name : String):
         mutual.resize(num_species)
 
     num_species_changed.emit(species_names)
+    species_changed.emit(species_names, mutuality, growth)
+
+func add_species_enum(species_enum : Species.SpeciesEnum):
+    var species_name : String = Species.name_enum.keys()[species_enum+1]
+    var species_exists : bool = self.species_names.find(species_name) != -1
+    if not species_exists:
+        add_species(species_name)
+    else:
+        prints('Species',species_name,'already exists on',owner.name)
 
 # Gaia
 const DEFENSE_THRESHOLD : float = 0.5
