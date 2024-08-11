@@ -10,23 +10,13 @@ The player can mold the environment and properties of the species to try to find
 
 ## now
 
-- [ ] Add menu to add a species
-
-Needs to fix the hiding/showing on hover as well as clicking (we have overlapping areas again)
--> fix it by putting a button to show density?
-
-In general rethink the ui given the limitations
-
-Connect thetexturebuttons to add_species
+- [ ] filter existing species out of the addspecies menu
 
 ## next
 
 - [ ] Island specificity
 - [ ] Same color per species
-- [ ] name in species density list
 
-Probably means to create the "Species" concept to add Species type.
-Alternativelly a mutuality+growth matrix "overlay" might also work.
 
 ## later
 
@@ -38,6 +28,9 @@ Alternativelly a mutuality+growth matrix "overlay" might also work.
 
 ## Done
 
+- [x] name in species density list
+- [x] rethink ui in general
+- [x] Add menu to add a species
 - [x] fix mouse handling on migrationand other menus -> use an area2d based node or some other ui/ux
 - [~] Change ui for island population
 - [x] [BUG] negative immigration does not emigrate
