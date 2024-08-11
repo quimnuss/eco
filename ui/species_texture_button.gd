@@ -9,6 +9,9 @@ const texture_num_h_frames := 16
 func _ready():
     self.texture_normal = AtlasTexture.new()
     self.texture_normal.atlas = load("res://assets/animals_nature.png")
+    self.ignore_texture_size = true
+    self.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+    self.custom_minimum_size = Vector2(24,24)
 
     var frame : int = Species.species_frame[species_enum]
     var atlas_coords = Vector2i(frame % texture_num_h_frames, int(frame/texture_num_h_frames))

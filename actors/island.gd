@@ -7,7 +7,6 @@ class_name Island
 @export var glv_sample : GLVSample
 @export var global_glv_sample : GLVSample = preload("res://data/3_sample_2_negative_growth.tres")
 
-@onready var highlight : Polygon2D = $Highlight
 @onready var tile_map = $TileMap
 @onready var collision_shape_2d = $Area2D/CollisionShape2D
 
@@ -109,15 +108,17 @@ func _on_add_species(island : int, species_name : String):
         glv.add_species(species_name)
 
 func _on_area_2d_island_clicked():
-    if not pops.visible:
-        pops.visible = true
-        lifeform_spawner.modulate.a = 0.4
-    elif not species_grid.visible:
-        species_grid.visible = true
-    else:
-        pops.visible = false
-        species_grid.visible = false
-        lifeform_spawner.modulate.a = 1
+    pass
+    #$Control.visible = not $Control.visible
+    #if not pops.visible:
+        #pops.visible = true
+        #lifeform_spawner.modulate.a = 0.4
+    #elif not species_grid.visible:
+        #species_grid.visible = true
+    #else:
+        #pops.visible = false
+        #species_grid.visible = false
+        #lifeform_spawner.modulate.a = 1
 
 
 func _on_glv_densities_update(new_densities : Array[float]):
