@@ -25,11 +25,13 @@ func set_island_name(island_name : String):
     island_label.set_text(island_name)
 
 var previous_num_children : int = -1
+var previous_num_species_names : int = -1
 
 func refresh_grid():
-    if previous_num_children == len(grid_container.get_children()):
+    if previous_num_children == len(grid_container.get_children()) and len(species_names) == previous_num_species_names:
         return
     previous_num_children = len(grid_container.get_children())
+    previous_num_species_names = len(species_names)
     # Too late
     #for child in grid_container.get_children():
         #child.queue_free()

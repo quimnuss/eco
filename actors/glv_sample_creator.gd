@@ -3,7 +3,7 @@ extends Node
 @export var example_glv_sample : GLVSample
 
 func _ready():
-    create()
+    #create()
     pass
 
 func create():
