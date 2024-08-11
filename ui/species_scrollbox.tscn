@@ -1,16 +1,50 @@
-[gd_scene load_steps=2 format=3 uid="uid://de6eq5x0khmdp"]
+[gd_scene load_steps=5 format=3 uid="uid://de6eq5x0khmdp"]
 
 [ext_resource type="Script" path="res://ui/species_scrollbox.gd" id="1_1jior"]
+[ext_resource type="StyleBox" uid="uid://dshhldwlwy602" path="res://ui/scrollbox_stylebox.tres" id="1_o0tk3"]
 
-[node name="SpeciesScrollbox" type="ScrollContainer"]
-custom_minimum_size = Vector2(200, 300)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_scroll_mode = 0
+[sub_resource type="Gradient" id="Gradient_xf4kk"]
+offsets = PackedFloat32Array(0, 0.213823, 0.740821, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mk7p7"]
+gradient = SubResource("Gradient_xf4kk")
+width = 100
+height = 300
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[node name="PanelContainer" type="PanelContainer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 10.0
+offset_bottom = 10.0
+theme_override_styles/panel = ExtResource("1_o0tk3")
 script = ExtResource("1_1jior")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
+clip_children = 1
+custom_minimum_size = Vector2(80, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource("GradientTexture2D_mk7p7")
+
+[node name="SpeciesScrollbox" type="ScrollContainer" parent="TextureRect"]
+custom_minimum_size = Vector2(80, 300)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/SpeciesScrollbox"]
+unique_name_in_owner = true
 layout_mode = 2

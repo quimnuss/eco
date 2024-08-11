@@ -137,3 +137,4 @@ func _on_title_gui_input(event):
     if event is InputEventMouseButton:
         mouse_clicked_at = get_local_mouse_position()
         is_following_mouse = event.is_pressed()
+

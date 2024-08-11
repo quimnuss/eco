@@ -1,5 +1,5 @@
-extends ScrollContainer
-@onready var v_box_container = $VBoxContainer
+extends Control
+@onready var v_box_container = %VBoxContainer
 
 func _ready():
     # remove none

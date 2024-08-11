@@ -13,5 +13,5 @@ func _ready():
     var frame : int = Species.species_frame[species_enum]
     var atlas_coords = Vector2i(frame % texture_num_h_frames, int(frame/texture_num_h_frames))
     self.texture_normal.region = Rect2(atlas_coords.x*72, atlas_coords.y*72, 72, 72)
-    prints(Species.name_enum.keys()[species_enum+1], species_enum,  frame, atlas_coords, self.texture_normal.region)
+    #prints(Species.name_enum.keys()[species_enum+1], species_enum,  frame, atlas_coords, self.texture_normal.region)
 
