@@ -14,6 +14,8 @@ var max_mutuality : float
 signal change_mutuality(index_i : int, index_j : int, new_mutuality : float)
 signal change_growth(index_i : int, new_growth : float)
 
+signal closed()
+
 const EPSILON : float = 0.0001
 
 func _ready():
@@ -22,7 +24,12 @@ func _ready():
 func set_island_name(island_name : String):
     island_label.set_text(island_name)
 
+var previous_num_children : int = -1
+
 func refresh_grid():
+    if previous_num_children == len(grid_container.get_children()):
+        return
+    previous_num_children = len(grid_container.get_children())
     # Too late
     #for child in grid_container.get_children():
         #child.queue_free()
@@ -66,7 +73,10 @@ func refresh_grid():
             one_square.change_mutuality.connect(_on_change_mutuality)
             grid_container.add_child(one_square)
 
+    prints('move title', previous_num_children, len(grid_container.get_children()))
+    $PanelContainer/VBoxContainer.move_child(mutuality_title, -2)
 
+@onready var mutuality_title = $PanelContainer/VBoxContainer/MutualityTitle
 
 
 func _on_change_mutuality(index_i : int, index_j : int, new_value : float):
@@ -130,6 +140,7 @@ func update_growth(growth : Array[float]):
 
 func _on_button_pressed():
     self.visible = false
+    closed.emit()
 
 var is_following_mouse : bool = false
 var mouse_clicked_at : Vector2

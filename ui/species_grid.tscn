@@ -37,8 +37,18 @@ mouse_filter = 1
 layout_mode = 2
 text = "x"
 
+[node name="GrowthTitle" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Species Growth"
+
 [node name="Growths" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="MutualityTitle" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 13
+text = "Mutuality Matrix"
 
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2

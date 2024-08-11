@@ -42,3 +42,13 @@ func _on_gui_input(event):
 
 func _on_texture_button_3_toggled(toggled_on):
     $"../SpeciesScrollbox".visible = toggled_on
+
+
+func _on_pops_closed():
+    var butt : TextureButton = $Radial/DensityButton as TextureButton
+    butt.set_pressed_no_signal(false)
+
+
+func _on_species_grid_closed():
+    var butt : TextureButton = $Radial/MutualityButton as TextureButton
+    butt.set_pressed_no_signal(false)

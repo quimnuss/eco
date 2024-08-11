@@ -125,3 +125,7 @@ func _on_glv_densities_update(new_densities : Array[float]):
     var species_densities = Util.zip(glv.species_names, new_densities)
     densities_update.emit(species_densities)
 
+
+
+func _on_density_button_toggled(toggled_on : bool):
+    lifeform_spawner.modulate.a = 0.4 if toggled_on else 1.0

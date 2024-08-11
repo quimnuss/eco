@@ -1,16 +1,21 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxmb813q27jud"]
+[gd_scene load_steps=20 format=3 uid="uid://dxmb813q27jud"]
 
 [ext_resource type="Script" path="res://actors/island.gd" id="1_0d0km"]
 [ext_resource type="Script" path="res://actors/glv.gd" id="2_pg5or"]
 [ext_resource type="TileSet" uid="uid://bxwxldjtw4p8n" path="res://world/island_tileset.tres" id="4_bmc6s"]
 [ext_resource type="Script" path="res://actors/pops.gd" id="4_q8gvr"]
 [ext_resource type="Script" path="res://scripts/highlighter.gd" id="5_hc6sn"]
+[ext_resource type="Texture2D" uid="uid://cdaeky8hm4yqc" path="res://assets/icons/Grass-1.png" id="6_2kmt0"]
 [ext_resource type="PackedScene" uid="uid://cxdx1cm2a7b4t" path="res://ui/species_grid.tscn" id="6_e82f1"]
 [ext_resource type="Script" path="res://actors/lifeform_spawner.gd" id="7_a8cui"]
 [ext_resource type="Script" path="res://ui/island_control.gd" id="7_r1y20"]
 [ext_resource type="PackedScene" uid="uid://de6eq5x0khmdp" path="res://ui/species_scrollbox.tscn" id="8_nonig"]
 [ext_resource type="Texture2D" uid="uid://dch4bvus558qh" path="res://assets/icons/Grass-Buttons-return2.png" id="9_idtc0"]
 [ext_resource type="Texture2D" uid="uid://c6squx5ymrct6" path="res://assets/icons/Grass-Buttons-pressed-return2.png" id="9_nxwra"]
+[ext_resource type="Texture2D" uid="uid://q3kjtba7diaq" path="res://assets/icons/Grass-Buttons-house.png" id="11_1tnun"]
+[ext_resource type="Texture2D" uid="uid://5fxnafuj3a1l" path="res://assets/icons/Grass-Buttons-pressed-house.png" id="12_tgsfi"]
+[ext_resource type="Texture2D" uid="uid://dmplrh7sofu6p" path="res://assets/icons/Grass-Buttons-+.png" id="13_pd50j"]
+[ext_resource type="Texture2D" uid="uid://djafnba7nai11" path="res://assets/icons/Grass-Buttons-pressed-+.png" id="14_klwu5"]
 
 [sub_resource type="Gradient" id="Gradient_do1wx"]
 offsets = PackedFloat32Array(0.326134, 0.388769, 0.449244, 1)
@@ -49,6 +54,21 @@ visible = false
 position = Vector2(-80, -16)
 script = ExtResource("4_q8gvr")
 
+[node name="CloseButton" type="Button" parent="Pops"]
+custom_minimum_size = Vector2(50, 50)
+offset_left = -49.0
+offset_top = -18.0
+offset_right = 1.0
+offset_bottom = 32.0
+theme_override_colors/font_color = Color(0.572549, 0.92549, 0.560784, 1)
+theme_override_colors/font_outline_color = Color(0.435294, 0.317647, 0.427451, 1)
+theme_override_constants/outline_size = 10
+text = " x"
+icon = ExtResource("6_2kmt0")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
 [node name="SpeciesGrid" parent="." instance=ExtResource("6_e82f1")]
 visible = false
 z_index = 2
@@ -62,6 +82,7 @@ offset_bottom = -91.0
 grow_vertical = 0
 
 [node name="SpeciesScrollbox" parent="." instance=ExtResource("8_nonig")]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -81,33 +102,36 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -112.0
-offset_right = 20.0
-offset_bottom = -72.0
+offset_left = -80.0
+offset_top = -106.0
+offset_right = 80.0
+offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("7_r1y20")
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
+visible = false
 layout_mode = 0
-offset_top = 36.0
-offset_right = 40.0
-offset_bottom = 76.0
+offset_left = 60.0
+offset_top = 31.0
+offset_right = 100.0
+offset_bottom = 71.0
 texture = SubResource("GradientTexture2D_cm6o2")
 expand_mode = 1
 
 [node name="Radial" type="Control" parent="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = 20.0
-offset_top = 56.0
-offset_right = 60.0
-offset_bottom = 96.0
+offset_left = 80.0
+offset_top = 51.0
+offset_right = 120.0
+offset_bottom = 91.0
 focus_mode = 2
 mouse_filter = 2
 
-[node name="TextureButton" type="TextureButton" parent="Control/Radial"]
+[node name="DensityButton" type="TextureButton" parent="Control/Radial"]
 layout_mode = 0
 offset_left = -49.0
 offset_top = -11.0
@@ -119,27 +143,28 @@ texture_pressed = ExtResource("9_nxwra")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureButton2" type="TextureButton" parent="Control/Radial"]
+[node name="MutualityButton" type="TextureButton" parent="Control/Radial"]
 layout_mode = 0
 offset_left = 25.0
 offset_top = -12.0
 offset_right = 49.0
 offset_bottom = 12.0
 toggle_mode = true
-texture_normal = ExtResource("9_idtc0")
-texture_pressed = ExtResource("9_nxwra")
+texture_normal = ExtResource("11_1tnun")
+texture_pressed = ExtResource("12_tgsfi")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="TextureButton3" type="TextureButton" parent="Control/Radial"]
+[node name="AddSpeciesButton" type="TextureButton" parent="Control/Radial"]
 layout_mode = 0
 offset_left = -12.0
 offset_top = -49.0
 offset_right = 12.0
 offset_bottom = -25.0
+tooltip_text = "Mutuality Matrix"
 toggle_mode = true
-texture_normal = ExtResource("9_idtc0")
-texture_pressed = ExtResource("9_nxwra")
+texture_normal = ExtResource("13_pd50j")
+texture_pressed = ExtResource("14_klwu5")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -154,14 +179,19 @@ shape = SubResource("RectangleShape2D_rcurx")
 [connection signal="densities_update" from="GLV" to="Pops" method="_on_glv_densities_update"]
 [connection signal="num_species_changed" from="GLV" to="Pops" method="_on_glv_num_species_changed"]
 [connection signal="species_changed" from="GLV" to="SpeciesGrid" method="_on_glv_species_changed"]
+[connection signal="closed" from="Pops" to="Control" method="_on_pops_closed"]
+[connection signal="pressed" from="Pops/CloseButton" to="Pops" method="_on_close_button_pressed"]
+[connection signal="toggled" from="Pops/CloseButton" to="Pops" method="_on_close_button_toggled"]
 [connection signal="change_growth" from="SpeciesGrid" to="GLV" method="change_growth"]
 [connection signal="change_mutuality" from="SpeciesGrid" to="GLV" method="change_mutuality"]
+[connection signal="closed" from="SpeciesGrid" to="Control" method="_on_species_grid_closed"]
 [connection signal="gui_input" from="Control" to="Control" method="_on_gui_input"]
 [connection signal="mouse_entered" from="Control" to="Control" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Control" to="Control" method="_on_mouse_exited"]
-[connection signal="toggled" from="Control/Radial/TextureButton" to="Control" method="_on_texture_button_toggled"]
-[connection signal="toggled" from="Control/Radial/TextureButton2" to="Control" method="_on_texture_button_2_toggled"]
-[connection signal="toggled" from="Control/Radial/TextureButton3" to="Control" method="_on_texture_button_3_toggled"]
+[connection signal="toggled" from="Control/Radial/DensityButton" to="." method="_on_density_button_toggled"]
+[connection signal="toggled" from="Control/Radial/DensityButton" to="Control" method="_on_texture_button_toggled"]
+[connection signal="toggled" from="Control/Radial/MutualityButton" to="Control" method="_on_texture_button_2_toggled"]
+[connection signal="toggled" from="Control/Radial/AddSpeciesButton" to="Control" method="_on_texture_button_3_toggled"]
 [connection signal="island_clicked" from="Area2D" to="." method="_on_area_2d_island_clicked"]
 [connection signal="mouse_entered" from="Area2D" to="Control" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="Control" method="_on_mouse_exited"]

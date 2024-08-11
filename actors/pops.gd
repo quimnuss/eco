@@ -34,3 +34,12 @@ func _on_glv_num_species_changed(new_species_names : Array):
     # assumes no names updates...
     if len(species_lines) != len(new_species_names):
         set_species_names(new_species_names)
+
+signal closed()
+
+func close():
+    self.visible = false
+    closed.emit()
+
+func _on_close_button_pressed():
+    self.visible = false
