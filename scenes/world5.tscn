@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://xqcgkt6smmj7"]
+[gd_scene load_steps=16 format=3 uid="uid://xqcgkt6smmj7"]
 
 [ext_resource type="Script" path="res://scenes/world.gd" id="1_gqbxc"]
 [ext_resource type="TileSet" uid="uid://bxwxldjtw4p8n" path="res://world/island_tileset.tres" id="2_n414t"]
@@ -10,6 +10,8 @@
 [ext_resource type="Resource" uid="uid://c6newxqmiw6mj" path="res://data/10_sample_0.tres" id="8_daeo5"]
 [ext_resource type="PackedScene" uid="uid://4l64m2h117q8" path="res://ui/cli.tscn" id="9_ceu10"]
 [ext_resource type="StyleBox" uid="uid://b4j6hug60aq8" path="res://ui/panel_stylebox.tres" id="10_pt325"]
+[ext_resource type="Shader" path="res://shaders/tinter.gdshader" id="11_bgfvq"]
+[ext_resource type="Texture2D" uid="uid://bc0mbhjrledpj" path="res://assets/square.png" id="12_ve85q"]
 
 [sub_resource type="Resource" id="Resource_7wi82"]
 script = ExtResource("4_svq57")
@@ -20,6 +22,10 @@ growth = Array[float]([])
 mutuality = Array[Array]([])
 description = ""
 display_name = ""
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0p8mk"]
+shader = ExtResource("11_bgfvq")
+shader_parameter/base = Color(0.619608, 0.729412, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t6xm6"]
 size = Vector2(976, 506)
@@ -61,6 +67,29 @@ editor_draw_limits = true
 script = ExtResource("5_rlbm8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="Control" type="Control" parent="Camera2D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1231.0
+offset_bottom = 724.0
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/CanvasLayer/Control"]
+material = SubResource("ShaderMaterial_0p8mk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("12_ve85q")
+expand_mode = 1
 
 [node name="Area2D" type="Area2D" parent="Camera2D/CanvasLayer"]
 position = Vector2(566, 324)
