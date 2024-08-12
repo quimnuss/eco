@@ -1,7 +1,7 @@
 extends Area2D
 
 signal island_clicked
-@onready var control = $"../Control"
+@onready var control = $"../IslandControl"
 
 func _ready():
     pass

@@ -3,9 +3,25 @@ extends Control
 var is_hovered := false
 var is_selected := false
 
+var highlight_color : Color = Color(0.7,1,1)
+var base_color : Color = Color(1,1,1)
+
 func _ready():
     add_to_group('island_selectors')
-
+    match owner.island_type:
+        Island.IslandType.NORMAL:
+            highlight_color = Color(0.7, 1, 1)
+            base_color = Color(1,1,1)
+        Island.IslandType.FIRE:
+            highlight_color = Color(1, 0.7, 0.7)
+            base_color = Color(1, 0.8, 0.8)
+        Island.IslandType.WATER:
+            highlight_color = Color(0, 0.8, 1)
+            base_color = Color(0, 0.9, 1)
+        Island.IslandType.AIR:
+            highlight_color = Color(0.5, 1, 0.5)
+            base_color = Color(0.5, 0.8, 0.5)
+    $"../TileMap".call_deferred('set_modulate',base_color)
 var num_hovered : int = 0
 
 func _on_mouse_entered():
@@ -13,8 +29,7 @@ func _on_mouse_entered():
     if num_hovered > 2:
         num_hovered = 2
     is_hovered = true
-    #$TextureRect.visible = true
-    $"../TileMap".modulate.r = 0.7
+    $"../TileMap".modulate = highlight_color
 
 func _on_mouse_exited():
     # hack because two area2d influence hovered
@@ -24,7 +39,7 @@ func _on_mouse_exited():
         is_hovered = false
         if not is_selected:
             $TextureRect.visible = false
-            $"../TileMap".modulate.r = 1
+            $"../TileMap".modulate = base_color
 
 func select_island():
     is_selected = true
@@ -38,7 +53,7 @@ func deselect():
         $Radial/AddSpeciesButton.set_pressed(false)
         $Radial.visible = false
         $TextureRect.visible = false
-        $"../TileMap".modulate.r = 1
+        $"../TileMap".modulate = base_color
 
 func _on_texture_button_toggled(toggled_on):
     $"../Pops".visible = toggled_on
@@ -46,16 +61,6 @@ func _on_texture_button_toggled(toggled_on):
 
 func _on_texture_button_2_toggled(toggled_on):
     $"../SpeciesGrid".visible = toggled_on
-
-
-func _gui_input(event):
-    pass
-    #if event is InputEventMouseButton and event.is_pressed():
-        #if event.button_index == MOUSE_BUTTON_LEFT:
-            #is_selected = not is_selected
-            #if is_selected:
-                #select_island()
-            #get_tree().call_group('island_selectors', 'deselect')
 
 func _on_texture_button_3_toggled(toggled_on):
     $"../SpeciesScrollbox".visible = toggled_on

@@ -5,7 +5,9 @@ class_name Island
 
 @export var start_species_names : Array[String]
 @export var glv_sample : GLVSample
-@export var global_glv_sample : GLVSample = preload("res://data/3_sample_2_negative_growth.tres")
+@export var global_glv_sample : GLVSample = preload("res://data/10_sample_0.tres")
+
+@export var island_type : IslandType = IslandType.NORMAL
 
 @onready var tile_map = $TileMap
 @onready var collision_shape_2d = $Area2D/CollisionShape2D
@@ -16,6 +18,8 @@ class_name Island
 @onready var lifeform_spawner : LifeformSpawner = $LifeformSpawner
 
 var migration_matrix : Dictionary = {} # Vector3i(id_from, id_to, species_index)
+
+enum IslandType { NORMAL, FIRE, WATER, AIR }
 
 signal island_selected(island_id : int)
 signal species_changed(species_names : Array[String])

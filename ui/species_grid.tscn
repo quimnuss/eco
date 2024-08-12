@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxdx1cm2a7b4t"]
+[gd_scene load_steps=4 format=3 uid="uid://cxdx1cm2a7b4t"]
 
 [ext_resource type="Script" path="res://ui/species_grid.gd" id="1_naxn0"]
 [ext_resource type="StyleBox" uid="uid://b4j6hug60aq8" path="res://ui/panel_stylebox.tres" id="2_xmstb"]
+[ext_resource type="Texture2D" uid="uid://trlfpoj41hvo" path="res://assets/icons/Grass-2.png" id="3_4282w"]
 
 [node name="SpeciesGrid" type="Control"]
 layout_mode = 3
@@ -33,9 +34,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CloseButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-text = "x"
+theme_override_colors/font_color = Color(0.572549, 0.92549, 0.560784, 1)
+theme_override_colors/font_outline_color = Color(0.435294, 0.317647, 0.427451, 1)
+theme_override_constants/outline_size = 10
+text = "x "
+icon = ExtResource("3_4282w")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="GrowthTitle" type="Label" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -55,4 +64,4 @@ layout_mode = 2
 
 [connection signal="gui_input" from="PanelContainer/VBoxContainer/HBoxContainer/IslandLabel" to="." method="_on_title_gui_input"]
 [connection signal="gui_input" from="PanelContainer/VBoxContainer/HBoxContainer/Control" to="." method="_on_title_gui_input"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_button_pressed"]
