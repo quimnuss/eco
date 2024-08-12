@@ -22,6 +22,7 @@ func _ready():
             highlight_color = Color(0.5, 1, 0.5)
             base_color = Color(0.5, 0.8, 0.5)
     $"../TileMap".call_deferred('set_modulate',base_color)
+
 var num_hovered : int = 0
 
 func _on_mouse_entered():
